@@ -1,3 +1,5 @@
+package subsistema_patrullas;
+
 import DAO.*;
 import Entidad.*;
 import java.sql.Connection;
