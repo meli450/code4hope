@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"DAO"},{"l":"Entidad"},{"l":"main"},{"l":"subsistema_alimentos_medicamentos"},{"l":"subsistema_patrullas"},{"l":"subsistema_taller"}];updateSearchResults();
