@@ -458,7 +458,6 @@ public class ControladorSubsistema_Talleres {
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
-            sc.close();
             conexionDB.cerrarConexion(conexion);
         }
     }
