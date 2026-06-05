@@ -65,8 +65,7 @@ public class Main {
 
             mostrarMenuPrincipal();
             try {
-                opcion = sc.nextInt();
-                sc.nextLine();
+                opcion = Integer.parseInt(sc.nextLine().trim());
             } catch (NumberFormatException e) {
                 System.out.println("  Entrada no valida. Introduzca un numero.");
             }
