@@ -492,7 +492,7 @@ public class GestionMedicamentosDAO {
                             "VALUES (?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, paciente.getNombre());
-            ps.setString(2, paciente.getApellidos());
+            ps.setString(2, paciente.getApellido());
             ps.setDate(3, paciente.getFechaNacimiento() != null
                     ? Date.valueOf(paciente.getFechaNacimiento())
                     : null);

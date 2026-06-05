@@ -10,28 +10,25 @@ import java.time.Period;
  * @author Code4Hope Team
  * @version 1.0
  */
-public class Paciente {
+public class Paciente extends Persona {
 
     private int idPaciente;
-    private String nombre;
-    private String apellidos;
     private LocalDate fechaNacimiento;
     private String alergias;
     private String historialMedico;
 
-    public Paciente(int idPaciente, String nombre, String apellidos,
+    public Paciente(int idPaciente, String nombre, String apellido,
             LocalDate fechaNacimiento, String alergias, String historialMedico) {
+        super(nombre, apellido);
         this.idPaciente = idPaciente;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.alergias = alergias;
         this.historialMedico = historialMedico;
     }
 
-    public Paciente(String nombre, String apellidos,
+    public Paciente(String nombre, String apellido,
             LocalDate fechaNacimiento, String alergias, String historialMedico) {
-        this(0, nombre, apellidos, fechaNacimiento, alergias, historialMedico);
+        this(0, nombre, apellido, fechaNacimiento, alergias, historialMedico);
     }
 
     /**
@@ -80,13 +77,15 @@ public class Paciente {
     /**
      * Devuelve el nombre completo del paciente.
      */
+    @Override
     public String getNombreCompleto() {
         String nombreCompleto;
+        String apellido = getApellido();
 
-        if (apellidos == null || apellidos.isEmpty()) {
-            nombreCompleto = nombre;
+        if (apellido == null || apellido.isEmpty()) {
+            nombreCompleto = getNombre();
         } else {
-            nombreCompleto = nombre + " " + apellidos;
+            nombreCompleto = getNombre() + " " + apellido;
         }
 
         return nombreCompleto;
@@ -94,14 +93,6 @@ public class Paciente {
 
     public int getIdPaciente() {
         return idPaciente;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -118,14 +109,6 @@ public class Paciente {
 
     public void setIdPaciente(int idPaciente) {
         this.idPaciente = idPaciente;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
     }
 
     public void setFechaNacimiento(LocalDate fn) {

@@ -7,7 +7,7 @@ package Entidad;
  * @author Code4Hope Team
  * @version 1.0
  */
-public class Tripulante {
+public class Tripulante extends Persona {
 
     /**
      * Rol funcional que puede desempenar un tripulante dentro de la patrulla.
@@ -95,8 +95,6 @@ public class Tripulante {
 
     private int id;
     private String nif;
-    private String nombre;
-    private String apellido;
     private String telefonoContacto;
     private Rol rol;
     private EstadoOperativo estadoOperativo;
@@ -107,15 +105,6 @@ public class Tripulante {
      */
     public Tripulante() {}
 
-    /**
-     * Devuelve el nombre completo del tripulante (nombre y apellido concatenados).
-     *
-     * @return cadena con el nombre y apellido.
-     */
-    public String getNombreCompleto() {
-        return nombre + " " + apellido;
-    }
-
     /** Devuelve el identificador unico del tripulante. */
     public int getId() { return id; }
     /** Establece el identificador unico del tripulante. @param id nuevo identificador. */
@@ -125,16 +114,6 @@ public class Tripulante {
     public String getNif() { return nif; }
     /** Establece el NIF del tripulante. @param nif numero de identificacion fiscal. */
     public void setNif(String nif) { this.nif = nif; }
-
-    /** Devuelve el nombre del tripulante. */
-    public String getNombre() { return nombre; }
-    /** Establece el nombre del tripulante. @param nombre nombre de pila. */
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    /** Devuelve el apellido del tripulante. */
-    public String getApellido() { return apellido; }
-    /** Establece el apellido del tripulante. @param apellido primer apellido. */
-    public void setApellido(String apellido) { this.apellido = apellido; }
 
     /** Devuelve el telefono de contacto del tripulante. */
     public String getTelefonoContacto() { return telefonoContacto; }

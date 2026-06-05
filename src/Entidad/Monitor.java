@@ -6,11 +6,9 @@ package Entidad;
 /**
  * Entidad que representa a un monitor o monitora del subsistema de talleres
  */
-public class Monitor {
+public class Monitor extends Persona {
 
     private String nif;
-    private String nombre;
-    private String apellido;
     private String telefono;
     private String direccion;
     private boolean activo;
@@ -20,20 +18,6 @@ public class Monitor {
      */
     public String getNif() {
         return nif;
-    }
-
-    /**
-     * @return nombre del monitor/a
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @return apellido del monitor/a
-     */
-    public String getApellido() {
-        return apellido;
     }
 
     /**
@@ -55,20 +39,6 @@ public class Monitor {
      */
     public boolean isActivo() {
         return activo;
-    }
-
-    /**
-     * @param nombre nombre del monitor/a
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @param apellido apellido del monitor/a
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     /**
@@ -103,21 +73,11 @@ public class Monitor {
      */
     public Monitor(String nif, String nombre, String apellido,
             String telefono, String direccion) {
+        super(nombre, apellido);
         this.nif = nif;
-        this.nombre = nombre;
-        this.apellido = apellido;
         this.telefono = telefono;
         this.direccion = direccion;
         this.activo = true;
-    }
-
-    /**
-     * Devuelve nombre y apellido concatenados
-     *
-     * @return nombre completo del monitor/a
-     */
-    public String getNombreCompleto() {
-        return nombre + " " + apellido;
     }
 
     @Override
