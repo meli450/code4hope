@@ -1,7 +1,7 @@
 /*Subsistema Talleres de Formacion
  * Realizado por: Melisa
  * Punto de entrada del subsistema */
-package Entidad;
+package subsistema_taller;
 
 import DAO.Conexion_DB;
 import DAO.EncuestaDAO;
