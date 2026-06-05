@@ -1,12 +1,12 @@
-package DAO;
+package Entidad;
 
-import Entidad.*;
+import DAO.*;
 
 import java.io.*;
 import java.sql.Connection;
 import java.util.*;
 
-public class GestorFicheros {
+public class GestorFicherosPatrullas {
 
     private static final String SEP = ";";
 
