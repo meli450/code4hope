@@ -337,7 +337,6 @@ public class ControladorSubsistemaAlimMed {
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
-            sc.close();
             conexionDB.cerrarConexion(conexion);
         }
     }
