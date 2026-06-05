@@ -459,7 +459,7 @@ public class ControladorSubsistema_Talleres {
             error.printStackTrace();
         } finally {
             sc.close();
-            conexionDB.CerrarConexion(conexion);
+            conexionDB.cerrarConexion(conexion);
         }
     }
 }
