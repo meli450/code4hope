@@ -430,7 +430,6 @@ public class ControladorSubsistemaPatrullas {
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
-            sc.close();
             try {
                 conexionDB.cerrarConexion(conexion);
             } catch (Exception e) {
