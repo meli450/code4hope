@@ -432,7 +432,7 @@ public class ControladorSubsistemaPatrullas {
         } finally {
             sc.close();
             try {
-                conexionDB.CerrarConexion(conexion);
+                conexionDB.cerrarConexion(conexion);
             } catch (Exception e) {
                 e.printStackTrace();
             }
