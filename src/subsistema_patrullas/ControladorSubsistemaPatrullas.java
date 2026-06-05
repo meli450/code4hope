@@ -335,9 +335,9 @@ public class ControladorSubsistemaPatrullas {
             mostrarMenuGestionFicheros();
             int opcion = leerOpcion(sc);
             switch (opcion) {
-                case 1: GestorFicheros.generarInformeMisionHTML(sc, con, daoP, daoV, daoR, daoPR, daoT, daoE, daoRC); break;
-                case 2: GestorFicheros.exportarComunicacionesCSV(sc, con, daoE, daoRC);                                break;
-                case 3: GestorFicheros.importarComunicacionesCSV(sc, con, daoE, daoRC);                                break;
+                case 1: GestorFicherosPatrullas.generarInformeMisionHTML(sc, con, daoP, daoV, daoR, daoPR, daoT, daoE, daoRC); break;
+                case 2: GestorFicherosPatrullas.exportarComunicacionesCSV(sc, con, daoE, daoRC);                                break;
+                case 3: GestorFicherosPatrullas.importarComunicacionesCSV(sc, con, daoE, daoRC);                                break;
                 case 0: volver = true;                                                                                  break;
                 default: System.out.println("  Opcion no valida. Elija entre 0 y 3."); break;
             }
