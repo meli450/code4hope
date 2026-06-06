@@ -1,4 +1,5 @@
-import DAO.*;
+package DAO;
+
 import Entidad.*;
 import java.sql.Connection;
 import java.util.List;
