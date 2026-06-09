@@ -49,7 +49,7 @@ El proyecto se ha desarrollado como **Proyecto Intermodular de 1º DAW** en el I
 | ☕ Java | JDK 11+ | Lógica de negocio y controladores |
 | 🗄️ MySQL | 8.0 | Base de datos relacional |
 | 🔌 JDBC | mysql-connector 8.0.23 | Conexión Java ↔ MySQL |
-| 🔧 Git | — | Control de versiones |
+| 🔧 Git | 2.54.0 | Control de versiones |
 | 🐙 GitHub | — | Repositorio remoto y colaboración |
 | 📄 HTML/CSS | HTML5 | Generación de informes exportados |
 
