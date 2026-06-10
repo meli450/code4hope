@@ -49,9 +49,13 @@ El proyecto se ha desarrollado como **Proyecto Intermodular de 1º DAW** en el I
 | ☕ Java | JDK 11+ | Lógica de negocio y controladores |
 | 🗄️ MySQL | 8.0 | Base de datos relacional |
 | 🔌 JDBC | mysql-connector 8.0.23 | Conexión Java ↔ MySQL |
-| 🔧 Git | 2.54.0 | Control de versiones |
+| 🔀 Git | 2.54.0 | Control de versiones |
 | 🐙 GitHub | — | Repositorio remoto y colaboración |
-| 📄 HTML/CSS | HTML5 | Generación de informes exportados |
+| 📄 HTML/CSS | HTML5/CSS3 | Generación de informes exportados |
+| 💻 JAVASCRIPT | HTML5 | Interactividad y lógica web |
+| 🧪 JUnit Jupiter | 5.13.4 | Tests unitarios |
+| 📦 Maven | 3.9 | Gestiona la construcción y las dependencias |
+
 
 > [!IMPORTANT]
 > Para ejecutar el proyecto es necesario tener MySQL corriendo en `localhost:3306` con usuario `root`, contraseña `root` y base de datos `code4hope`. Puedes crear la base de datos con el fichero `code4hope.sql` incluido en el repositorio.
