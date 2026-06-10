@@ -1,6 +1,6 @@
 ![Logo de Code4Hope](img/logo.png)
 
-# 🌍 Code4Hope — Sistema de Gestión de Ayuda Humanitaria (SGAH)
+# 🌍 Code4Hope - Sistema de Gestión de Ayuda Humanitaria (SGAH)
 
 Aplicación de escritorio en Java para gestionar patrullas humanitarias en zonas de conflicto: suministros, medicamentos, vehículos, rutas y talleres de formación, todo integrado en un sistema de consola con base de datos MySQL.
 
@@ -23,7 +23,7 @@ Aplicación de escritorio en Java para gestionar patrullas humanitarias en zonas
 
 **Code4Hope** nace de la necesidad de una organización internacional de ayuda humanitaria que opera en zonas de conflicto. El sistema permite planificar y gestionar las patrullas semanales encargadas de transportar alimentos y medicamentos, organizar talleres educativos y monitorizar el terreno en tiempo real.
 
-El proyecto se ha desarrollado como **Proyecto Intermodular de 1º DAW** en el IES Font de Sant Lluís, bajo la tutela de Pascual Queralt, aplicando una arquitectura en 3 capas y metodologías ágiles con desarrollo iterativo por Sprints.
+El proyecto se ha desarrollado como **Proyecto Intermodular de 1º DAW** en el IES Font de Sant Lluís, tutorizados/as por Pascual Queralt como figura Product Owner, aplicando una arquitectura en 3 capas y metodologías ágiles con desarrollo iterativo por Sprints.
 
 > [!NOTE]
 > El sistema está diseñado para ejecutarse desde consola e interactúa con una base de datos MySQL local. Consulta el apartado de tecnologías para conocer los requisitos previos.
@@ -32,12 +32,12 @@ El proyecto se ha desarrollado como **Proyecto Intermodular de 1º DAW** en el I
 
 ## Integrantes
 
-- 👩‍💻 **Melisa Vafaeva** — Desarrolladora Software (Subsistema Talleres)
+- 👩‍💻 **Melisa Vafaeva** — Desarrolladora Software (Subsistema Talleres de Formación)
 - 👨‍💻 **Jose Manuel Morato** — Desarrollador Software (Subsistema Patrullas)
 - 👨‍💻 **Marc Nacher** — Desarrollador Software (Subsistema Alimentos y Medicamentos)
 - 👨‍💻 **Julio Linares** — Desarrollador Software (Subsistema Alimentos y Medicamentos)
 
-**Tutor del Proyecto:** Pascual Queralt
+**Tutor de Proyecto:** Pascual Queralt
 **Centro Educativo:** IES Font de Sant Lluís
 
 ---
@@ -134,16 +134,16 @@ Registro de almacenes de alimentos y almacenes de medicamentos, con cámaras de 
 ### 3. 🎓 Subsistema de Talleres de Formación
 
 #### Gestión de Talleres
-Creación y planificación de talleres (alfabetización, apoyo psicosocial, etc.) con control de aforo, estado y asignación de monitores. Exportación a informe HTML.
+Creación y planificación de talleres (alfabetización, apoyo psicosocial, etc.) con control de aforo, estado y asignación de monitores/as. Exportación a informe HTML.
 
 #### Gestión de Participantes
 Registro de colectivos vulnerables con alta, modificación y baja del sistema.
 
 #### Gestión de Monitores
-CRUD de monitores responsables de cada taller.
+CRUD de monitores/as responsables de cada taller.
 
 #### Gestión de Recursos
-Control de materiales didácticos con asignación a patrullas y talleres, liberación y cambio de estado.
+Control de materiales con asignación a patrullas y talleres, liberación y cambio de estado.
 
 #### Encuestas de Impacto
 Integración con Google Forms para registrar encuestas, mostrar enlace, importar respuestas y generar informe de impacto social.
@@ -266,4 +266,4 @@ El desarrollo de **Code4Hope** nos ha permitido aplicar de forma integrada y rea
 Más allá de lo técnico, el proyecto nos ha enseñado a organizarnos como equipo siguiendo metodologías ágiles, a dividir un sistema complejo en subsistemas independientes y a mantener un código limpio, documentado con JavaDoc y versionado de forma coherente.
 
 > [!IMPORTANT]
-> Este proyecto ha sido desarrollado con fines educativos en el marco del módulo intermodular de 1º DAW. Financiado por el Plan de Recuperación, Transformación y Resiliencia — NextGenerationEU.
+> Este proyecto ha sido desarrollado con fines educativos en el marco del módulo Proyecto intermodular de 1º DAW. Financiado por el Plan de Recuperación, Transformación y Resiliencia — NextGenerationEU.
