@@ -24,17 +24,6 @@ public class ControladorSubsistemaPatrullas {
     // MENUS
     // =========================================================================
 
-    /** Muestra el menu principal del sistema. */
-    private static void mostrarMenuPrincipal() {
-        System.out.println("\n============================================================");
-        System.out.println("  CODE4HOPE - Sistema de Gestion de Subsistemas");
-        System.out.println("============================================================");
-        System.out.println("  1. Patrullas");
-        System.out.println("  0. Salir");
-        System.out.println("------------------------------------------------------------");
-        System.out.print("  Opcion: ");
-    }
-
     /** Muestra el menu del subsistema de patrullas. */
     private static void mostrarMenuPatrullas() {
         System.out.println("\n  +------------------------------------------+");
@@ -407,23 +396,8 @@ public class ControladorSubsistemaPatrullas {
             EquipoComunicacionDAO daoEquipo     = new EquipoComunicacionDAO();
             RegistroComunicacionDAO daoRegistro = new RegistroComunicacionDAO();
 
-            boolean salir = false;
-            while (!salir) {
-                mostrarMenuPrincipal();
-                int opcion = leerOpcion(sc);
-                switch (opcion) {
-                    case 1:
-                        menuPatrullas(sc, conexion, daoPatrulla, daoTripulante,
-                                daoVehiculo, daoRuta, daoPuntoRuta, daoEquipo, daoRegistro);
-                        break;
-                    case 0:
-                        salir = true;
-                        break;
-                    default:
-                        System.out.println("  Opcion no valida. Elija 1 o 0.");
-                        break;
-                }
-            }
+            menuPatrullas(sc, conexion, daoPatrulla, daoTripulante,
+                    daoVehiculo, daoRuta, daoPuntoRuta, daoEquipo, daoRegistro);
 
             System.out.println("\n  Hasta pronto.");
 
