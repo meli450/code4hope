@@ -772,7 +772,7 @@ public class GestionMedicamentosDAO {
                             "       lm.numero_lote_fabricante, lm.condiciones_almacenamiento, lm.codigo_almacen " +
                             "FROM LOTE l " +
                             "INNER JOIN LOTE_MEDICAMENTOS lm ON l.id_lote = lm.id_lote " +
-                            "WHERE l.estado = 'ACTIVO' " +
+                            "WHERE l.estado = 'Disponible' " +
                             "ORDER BY l.id_lote ASC");
             rs = ps.executeQuery();
 

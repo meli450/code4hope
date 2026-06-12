@@ -524,7 +524,7 @@ public class GestionAlimentosDAO {
                             "       la.temperatura_control, la.humedad_control, la.codigo_almacen " +
                             "FROM LOTE l " +
                             "INNER JOIN LOTE_ALIMENTOS la ON l.id_lote = la.id_lote " +
-                            "WHERE l.estado = 'ACTIVO' " +
+                            "WHERE l.estado = 'Disponible' " +
                             "ORDER BY l.id_lote ASC");
             rs = ps.executeQuery();
 
