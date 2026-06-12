@@ -26,9 +26,9 @@ public class ControladorSubsistemaPatrullas {
 
     /** Muestra el menu del subsistema de patrullas. */
     private static void mostrarMenuPatrullas() {
-        System.out.println("\n  +------------------------------------------+");
-        System.out.println("  |        SUBSISTEMA DE PATRULLAS           |");
-        System.out.println("  +------------------------------------------+");
+        System.out.println("\n============================================================");
+        System.out.println("  CODE4HOPE - Subsistema Alimentos y Medicamentos");
+        System.out.println("============================================================");
         System.out.println("  1. Gestion de Patrullas");
         System.out.println("  2. Gestion de Tripulantes");
         System.out.println("  3. Gestion de Vehiculos");
