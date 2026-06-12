@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventario - Code4Hope</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!--  NAVBAR  -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+        <span>Code4Hope</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="patrullas.html">Patrullas</a></li>
+          <li class="nav-item"><a class="nav-link active" href="inventario.html">Inventario</a></li>
+          <li class="nav-item"><a class="nav-link" href="talleres.html">Talleres</a></li>
+          <li class="nav-item"><a class="nav-link" href="fol.html">Fichaje</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--  CABECERA  -->
+  <div class="bg-dark text-white py-4">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Inicio</a></li>
+          <li class="breadcrumb-item active text-white">Inventario</li>
+        </ol>
+      </nav>
+      <h1 class="h3"><i class="bi bi-box-seam-fill text-warning me-2"></i>Inventario</h1>
+      <p class="text-white-50 mb-0">Control de alimentos y medicamentos disponibles para las operaciones.</p>
+    </div>
+  </div>
+
+  <div class="container my-4">
+
+    <!-- Alerta stocks bajos -->
+    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+      <i class="bi bi-exclamation-octagon-fill fs-5"></i>
+      <div>
+        <strong>2 ítems con stock bajo o agotado:</strong> Paracetamol 1g (Bajo), Suero Oral (Agotado).
+      </div>
+    </div>
+
+    <!--  TABS BOOTSTRAP  -->
+    <ul class="nav nav-tabs mb-3" id="invTabs">
+      <li class="nav-item">
+        <button class="nav-link active" id="tab-ali" data-bs-toggle="tab" data-bs-target="#panel-ali" type="button">
+          <i class="bi bi-basket2-fill text-success me-1"></i> Alimentos
+          <span class="badge bg-success ms-1" id="cntAli">3</span>
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" id="tab-med" data-bs-toggle="tab" data-bs-target="#panel-med" type="button">
+          <i class="bi bi-capsule-pill text-primary me-1"></i> Medicamentos
+          <span class="badge bg-primary ms-1" id="cntMed">3</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!--  PANEL ALIMENTOS  -->
+      <div class="tab-pane fade show active" id="panel-ali">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Alimentos registrados</h5>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAlimento">
+            <i class="bi bi-plus-circle me-1"></i> Añadir alimento
+          </button>
+        </div>
+
+        <div class="table-responsive shadow-sm rounded">
+          <table class="table table-striped table-hover align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th class="text-center">Cantidad</th>
+                <th>Caducidad</th>
+                <th>Estado</th>
+                <th class="text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyAlimentos">
+              <tr>
+                <td class="text-muted">1</td>
+                <td><strong>Arroz Basmati</strong></td>
+                <td><span class="badge bg-light text-dark border">Cereal</span></td>
+                <td class="text-center">500 kg</td>
+                <td>31/12/2026</td>
+                <td><span class="badge bg-success">Disponible</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntAli')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+              <tr>
+                <td class="text-muted">2</td>
+                <td><strong>Leche en Polvo</strong></td>
+                <td><span class="badge bg-light text-dark border">Lácteo</span></td>
+                <td class="text-center">80 kg</td>
+                <td>30/06/2026</td>
+                <td><span class="badge bg-warning text-dark">Bajo</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntAli')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+              <tr>
+                <td class="text-muted">3</td>
+                <td><strong>Aceite de Oliva</strong></td>
+                <td><span class="badge bg-light text-dark border">Aceite</span></td>
+                <td class="text-center">200 L</td>
+                <td>01/01/2027</td>
+                <td><span class="badge bg-success">Disponible</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntAli')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SECCIÓN API OPEN FOOD FACTS -->
+        <hr class="my-4">
+        <div class="d-flex align-items-center mb-3">
+          <h5 class="mb-0"><i class="bi bi-upc-scan text-success me-2"></i>Buscar productos en Open Food Facts</h5>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="cajaBusqueda" placeholder="Ej: Nutella, Galletas, Leche..."
+            onkeydown="if(event.key==='Enter') buscarProductos()">
+          <button class="btn btn-success" onclick="buscarProductos()">
+            <i class="bi bi-search me-1"></i> Buscar
+          </button>
+        </div>
+        <div id="productos"></div>
+
+      </div><!-- fin panel alimentos -->
+
+      <!--  PANEL MEDICAMENTOS  -->
+      <div class="tab-pane fade" id="panel-med" id="medicamentos">
+
+        <div class="d-flex justify-content-between align-items-center mb-3 mt-1">
+          <h5 class="mb-0">Medicamentos registrados</h5>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedicamento">
+            <i class="bi bi-plus-circle me-1"></i> Añadir medicamento
+          </button>
+        </div>
+
+        <div class="table-responsive shadow-sm rounded">
+          <table class="table table-striped table-hover align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th class="text-center">Cantidad</th>
+                <th>Dosis</th>
+                <th>Caducidad</th>
+                <th>Estado</th>
+                <th class="text-center">Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMedicamentos">
+              <tr>
+                <td class="text-muted">1</td>
+                <td><strong>Amoxicilina 500mg</strong></td>
+                <td><span class="badge bg-light text-dark border">Antibiótico</span></td>
+                <td class="text-center">300 uds.</td>
+                <td>500mg/8h</td>
+                <td>01/08/2026</td>
+                <td><span class="badge bg-success">Disponible</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntMed')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+              <tr>
+                <td class="text-muted">2</td>
+                <td><strong>Paracetamol 1g</strong></td>
+                <td><span class="badge bg-light text-dark border">Analgésico</span></td>
+                <td class="text-center">50 uds.</td>
+                <td>1g/8h</td>
+                <td>31/12/2025</td>
+                <td><span class="badge bg-warning text-dark">Bajo</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntMed')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+              <tr>
+                <td class="text-muted">3</td>
+                <td><strong>Suero Oral</strong></td>
+                <td><span class="badge bg-light text-dark border">Hidratación</span></td>
+                <td class="text-center">0 sobres</td>
+                <td>1 sobre/250ml</td>
+                <td>01/03/2026</td>
+                <td><span class="badge bg-danger">Agotado</span></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-danger"
+                    onclick="eliminarFila(this,'cntMed')"><i class="bi bi-trash3-fill"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SECCIÓN API THEAUDIODB -->
+        <hr class="my-4">
+        <h4 class="mb-1">
+          <i class="bi bi-music-note-beamed text-primary me-2"></i>
+          Consulta de Artistas Musicales
+          <span class="badge bg-secondary fs-6 ms-2">API Externa</span>
+        </h4>
+        <p class="text-muted small mb-4">
+          Datos obtenidos en tiempo real desde <strong>TheAudioDB</strong>. Busca cualquier artista para ver su ficha completa.
+        </p>
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-dark text-white d-flex align-items-center gap-2">
+                <i class="bi bi-list-ul"></i>
+                <span>Artistas destacados</span>
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Artista</th><th>País</th><th>Género</th><th>Formación</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyArtistas"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-primary text-white">
+                <i class="bi bi-search me-2"></i>Buscar artista
+              </div>
+              <div class="card-body d-flex flex-column gap-3">
+                <div class="input-group">
+                  <input type="text" id="inputArtista" class="form-control"
+                         placeholder="Ej: Coldplay, Metallica…"
+                         onkeydown="if(event.key==='Enter') buscarArtista()">
+                  <button class="btn btn-primary" onclick="buscarArtista()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+                <div id="fichaArtista" class="flex-grow-1">
+                  <div class="text-center text-muted py-5">
+                    <i class="bi bi-person-bounding-box fs-1 opacity-25"></i>
+                    <p class="mt-2 small">Introduce un artista y pulsa buscar.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /row -->
+
+      </div><!-- fin panel medicamentos -->
+
+    </div><!-- fin ambos paneles -->
+
+    <!--  LEYENDA ESTADOS  -->
+    <div class="mt-4 p-3 bg-light rounded">
+      <h6 class="mb-2">Leyenda de estados</h6>
+      <div class="d-flex flex-wrap gap-2 small">
+        <span><span class="badge bg-success">Disponible</span> Stock suficiente</span>
+        <span><span class="badge bg-warning text-dark">Bajo</span> Quedan pocas unidades, reponer pronto</span>
+        <span><span class="badge bg-danger">Agotado</span> Sin existencias</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!--  MODAL: Añadir Alimento PLUGIN PARA POPUP  -->
+  <div class="modal fade" id="modalAlimento" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title"><i class="bi bi-basket2-fill me-2"></i>Añadir alimento</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formAlimento" novalidate>
+            <div class="mb-3">
+              <label class="form-label">Nombre <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="aNombre" required placeholder="Ej: Pasta">
+              <div class="invalid-feedback">El nombre es obligatorio.</div>
+            </div>
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="form-label">Categoría</label>
+                <input type="text" class="form-control" id="aCategoria" placeholder="Ej: Cereal">
+              </div>
+              <div class="col-3">
+                <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="aCantidad" min="0" required placeholder="0">
+                <div class="invalid-feedback">Obligatorio.</div>
+              </div>
+              <div class="col-3">
+                <label class="form-label">Unidad</label>
+                <input type="text" class="form-control" id="aUnidad" placeholder="kg">
+              </div>
+            </div>
+            <div class="row g-2 mt-1">
+              <div class="col-6">
+                <label class="form-label">Caducidad</label>
+                <input type="date" class="form-control" id="aCaducidad">
+              </div>
+              <div class="col-6">
+                <label class="form-label">Estado</label>
+                <select class="form-select" id="aEstado">
+                  <option value="Disponible">Disponible</option>
+                  <option value="Bajo">Bajo</option>
+                  <option value="Agotado">Agotado</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-success" onclick="agregarAlimento()">
+            <i class="bi bi-floppy2 me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  MODAL: Añadir Medicamento PLUGIN PARA POPUP  -->
+  <div class="modal fade" id="modalMedicamento" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title"><i class="bi bi-capsule-pill me-2"></i>Añadir medicamento</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formMedicamento" novalidate>
+            <div class="mb-3">
+              <label class="form-label">Nombre <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="mNombre" required placeholder="Ej: Ibuprofeno 400mg">
+              <div class="invalid-feedback">El nombre es obligatorio.</div>
+            </div>
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="form-label">Tipo</label>
+                <input type="text" class="form-control" id="mTipo" placeholder="Ej: Antiinflamatorio">
+              </div>
+              <div class="col-3">
+                <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="mCantidad" min="0" required>
+                <div class="invalid-feedback">Obligatorio.</div>
+              </div>
+              <div class="col-3">
+                <label class="form-label">Unidad</label>
+                <input type="text" class="form-control" id="mUnidad" placeholder="uds.">
+              </div>
+            </div>
+            <div class="row g-2 mt-1">
+              <div class="col-6">
+                <label class="form-label">Dosis</label>
+                <input type="text" class="form-control" id="mDosis" placeholder="Ej: 400mg/8h">
+              </div>
+              <div class="col-6">
+                <label class="form-label">Caducidad</label>
+                <input type="date" class="form-control" id="mCaducidad">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Estado</label>
+                <select class="form-select" id="mEstado">
+                  <option value="Disponible">Disponible</option>
+                  <option value="Bajo">Bajo</option>
+                  <option value="Agotado">Agotado</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" onclick="agregarMedicamento()">
+            <i class="bi bi-floppy2 me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  FOOTER  -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <span class="text-white-50 small">&copy; 2026 Code4Hope</span>
+      <div class="d-flex gap-3 small">
+        <a href="index.html" class="text-white-50 text-decoration-none">Inicio</a>
+        <a href="patrullas.html" class="text-white-50 text-decoration-none">Patrullas</a>
+        <a href="talleres.html" class="text-white-50 text-decoration-none">Talleres</a>
+        <a href="fol.html" class="text-white-50 text-decoration-none">Fichaje</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Colores de badge para estado
+    let coloresEstado = { 'Disponible': 'success', 'Bajo': 'warning text-dark', 'Agotado': 'danger' };
+    let nAli = 3;
+    let nMed = 3;
+
+    //  Agregar alimento 
+    function agregarAlimento() {
+      let form = document.getElementById('formAlimento');
+
+      // Validación básica de Bootstrap, los campos vacios que sean required se ponen en rojo
+      // check validity es un metodo nativo del navegador que verifica si un required esta vacio
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+
+      let nombre = document.getElementById('aNombre').value.trim();
+      let cat = document.getElementById('aCategoria').value.trim() || '—';
+      let cantidad = document.getElementById('aCantidad').value;
+      let unidad = document.getElementById('aUnidad').value.trim() || '';
+      let caduca = document.getElementById('aCaducidad').value || '—';
+      let estado = document.getElementById('aEstado').value;
+      let color = coloresEstado[estado] || 'secondary';
+
+
+      // CON ESTO AÑADO EL HTML NECESARIO PARA UNA FILA, NO SE GUARDA ES UN EJEMPLO 
+      nAli++;
+      let fila = document.createElement('tr');
+      fila.classList.add('fila-nueva');
+      fila.innerHTML =
+        '<td class="text-muted">' + nAli + '</td>' +
+        '<td><strong>' + nombre + '</strong></td>' +
+        '<td><span class="badge bg-light text-dark border">' + cat + '</span></td>' +
+        '<td class="text-center">' + cantidad + ' ' + unidad + '</td>' +
+        '<td>' + caduca + '</td>' +
+        '<td><span class="badge bg-' + color + '">' + estado + '</span></td>' +
+        '<td class="text-center"><button class="btn btn-sm btn-outline-danger" onclick="eliminarFila(this,\'cntAli\')"><i class="bi bi-trash3-fill"></i></button></td>';
+
+      document.getElementById('tbodyAlimentos').appendChild(fila);
+      setTimeout(function () { fila.classList.remove('fila-nueva'); }, 1500);
+
+      actualizarContador('cntAli', 'tbodyAlimentos');
+      form.reset(); form.classList.remove('was-validated');
+      bootstrap.Modal.getInstance(document.getElementById('modalAlimento')).hide();
+    }
+
+    //  Agregar medicamento 
+    function agregarMedicamento() {
+      let form = document.getElementById('formMedicamento');
+
+      // Validación básica de Bootstrap, los campos vacios que sean required se ponen en rojo
+      // check validity es un metodo nativo del navegador que verifica si un required esta vacio
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+
+      let nombre = document.getElementById('mNombre').value.trim();
+      let tipo = document.getElementById('mTipo').value.trim() || '—';
+      let cantidad = document.getElementById('mCantidad').value;
+      let unidad = document.getElementById('mUnidad').value.trim() || 'uds.';
+      let dosis = document.getElementById('mDosis').value.trim() || '—';
+      let caduca = document.getElementById('mCaducidad').value || '—';
+      let estado = document.getElementById('mEstado').value;
+      let color = coloresEstado[estado] || 'secondary';
+
+      // CON ESTO AÑADO EL HTML NECESARIO PARA UNA FILA, NO SE GUARDA ES UN EJEMPLO 
+      nMed++;
+      let fila = document.createElement('tr');
+      fila.classList.add('fila-nueva');
+      fila.innerHTML =
+        '<td class="text-muted">' + nMed + '</td>' +
+        '<td><strong>' + nombre + '</strong></td>' +
+        '<td><span class="badge bg-light text-dark border">' + tipo + '</span></td>' +
+        '<td class="text-center">' + cantidad + ' ' + unidad + '</td>' +
+        '<td>' + dosis + '</td>' +
+        '<td>' + caduca + '</td>' +
+        '<td><span class="badge bg-' + color + '">' + estado + '</span></td>' +
+        '<td class="text-center"><button class="btn btn-sm btn-outline-danger" onclick="eliminarFila(this,\'cntMed\')"><i class="bi bi-trash3-fill"></i></button></td>';
+
+      document.getElementById('tbodyMedicamentos').appendChild(fila);
+      setTimeout(function () { fila.classList.remove('fila-nueva'); }, 1500);
+
+      actualizarContador('cntMed', 'tbodyMedicamentos');
+      form.reset(); form.classList.remove('was-validated');
+      bootstrap.Modal.getInstance(document.getElementById('modalMedicamento')).hide();
+    }
+
+    //  Eliminar fila 
+    function eliminarFila(btn, cntId) {
+      if (!confirm('¿Eliminar este ítem?')) return;
+      let tbodyId = (cntId === 'cntAli') ? 'tbodyAlimentos' : 'tbodyMedicamentos';
+      btn.closest('tr').remove();
+      actualizarContador(cntId, tbodyId);
+    }
+
+    //  Actualizar badge contador
+    function actualizarContador(cntId, tbodyId) {
+      let n = document.getElementById(tbodyId).querySelectorAll('tr').length;
+      document.getElementById(cntId).textContent = n;
+    }
+
+    // ---- OPEN FOOD FACTS API ----
+
+    let IMG_DEFECTO = 'https://placehold.co/80x80?text=Sin+imagen';
+
+    function buscarProductos(intentos) {
+      intentos = intentos || 0;
+      let textoBuscado = document.getElementById('cajaBusqueda').value.trim() || 'snacks';
+      let url = 'https://world.openfoodfacts.org/cgi/search.pl?search_terms='
+        + encodeURIComponent(textoBuscado)
+        + '&search_simple=1&action=process&json=1';
+
+      let cajaTarjetas = document.getElementById('productos');
+      cajaTarjetas.innerHTML =
+        '<div class="text-center py-4">' +
+        '<div class="spinner-border text-success" role="status"></div>' +
+        '<p class="mt-2 text-muted small">Buscando productos...</p>' +
+        '</div>';
+
+      fetch(url)
+        .then(function (response) {
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          return response.json();
+        })
+        .then(function (data) {
+          let productos = data.products;
+          if (!productos || productos.length === 0) {
+            cajaTarjetas.innerHTML =
+              '<div class="alert alert-warning">' +
+              '<i class="bi bi-exclamation-circle me-2"></i>' +
+              'No se encontraron productos para "<strong>' + textoBuscado + '</strong>".' +
+              '</div>';
+          } else {
+            let html = '<div class="row row-cols-2 row-cols-md-4 g-3">';
+            productos.forEach(function (p) {
+              let nombre = p.product_name || p.product_name_es || 'Sin nombre';
+              let marca = p.brands || '—';
+              let categoria = p.categories ? p.categories.split(',')[0].trim() : '—';
+              let foto = p.image_front_url || p.image_url || IMG_DEFECTO;
+
+              html +=
+                '<div class="col">' +
+                '<div class="card h-100 shadow-sm">' +
+                '<img src="' + foto + '" class="card-img-top" alt="' + nombre + '"' +
+                ' style="height:140px;object-fit:contain;padding:8px;"' +
+                ' onerror="this.src=\'' + IMG_DEFECTO + '\'">' +
+                '<div class="card-body p-2">' +
+                '<p class="fw-bold small mb-1">' + nombre + '</p>' +
+                '<p class="text-muted small mb-1"><i class="bi bi-tag-fill me-1"></i>' + marca + '</p>' +
+                '<span class="badge bg-light text-dark border small">' + categoria + '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            });
+            html += '</div>';
+            cajaTarjetas.innerHTML = html;
+          }
+        })
+        .catch(function () {
+          if (intentos < 2) {
+            setTimeout(function () { buscarProductos(intentos + 1); }, 1500);
+          } else {
+            cajaTarjetas.innerHTML =
+              '<div class="alert alert-danger d-flex align-items-center justify-content-between">' +
+              '<span><i class="bi bi-wifi-off me-2"></i>Error al conectar con la API. Comprueba tu conexión a internet.</span>' +
+              '<button class="btn btn-sm btn-outline-danger ms-3" onclick="buscarProductos()">' +
+              '<i class="bi bi-arrow-clockwise me-1"></i>Reintentar' +
+              '</button>' +
+              '</div>';
+          }
+        });
+    }
+
+    // Carga automática al abrir la página, con retardo para dar margen a la API
+    window.addEventListener('load', function () {
+      setTimeout(buscarProductos, 2000);
+    });
+
+    // ---- THEAUDIODB API ----
+
+    function mostrarFicha(a) {
+      let ficha = document.getElementById('fichaArtista');
+      ficha.innerHTML =
+        '<img src="' + a.strArtistThumb + '/preview" class="rounded mb-3 w-100" style="max-height:200px;object-fit:cover;" alt="Foto de ' + a.strArtist + '">' +
+        '<h6 class="fw-bold">' + a.strArtist + '</h6>' +
+        '<p class="mb-1"><strong>País:</strong> ' + a.strCountry + '</p>' +
+        '<p class="mb-1"><strong>Género:</strong> ' + a.strGenre + '</p>' +
+        '<p class="mb-1"><strong>Año de formación:</strong> ' + a.intFormedYear + '</p>' +
+        '<p class="mb-0"><strong>Miembros:</strong> ' + a.intMembers + '</p>';
+    }
+
+    // Al cargar la página hacemos un fetch por cada artista y añadimos su fila a la tabla
+    fetch('https://www.theaudiodb.com/api/v1/json/2/search.php?s=Coldplay')
+      .then(function (respuesta) { return respuesta.json(); })
+      .then(function (datos) {
+        let a = datos.artists[0];
+        let fila = document.createElement('tr');
+        fila.style.cursor = 'pointer';
+        fila.innerHTML = '<td><strong>' + a.strArtist + '</strong></td><td>' + a.strCountry + '</td><td>' + a.strGenre + '</td><td>' + a.intFormedYear + '</td>';
+        fila.onclick = function () { mostrarFicha(a); };
+        document.getElementById('tbodyArtistas').appendChild(fila);
+      });
+
+    fetch('https://www.theaudiodb.com/api/v1/json/2/search.php?s=Estopa')
+      .then(function (respuesta) { return respuesta.json(); })
+      .then(function (datos) {
+        let a = datos.artists[0];
+        let fila = document.createElement('tr');
+        fila.style.cursor = 'pointer';
+        fila.innerHTML = '<td><strong>' + a.strArtist + '</strong></td><td>' + a.strCountry + '</td><td>' + a.strGenre + '</td><td>' + a.intFormedYear + '</td>';
+        fila.onclick = function () { mostrarFicha(a); };
+        document.getElementById('tbodyArtistas').appendChild(fila);
+      });
+
+    fetch('https://www.theaudiodb.com/api/v1/json/2/search.php?s=Rosalia')
+      .then(function (respuesta) { return respuesta.json(); })
+      .then(function (datos) {
+        let a = datos.artists[0];
+        let fila = document.createElement('tr');
+        fila.style.cursor = 'pointer';
+        fila.innerHTML = '<td><strong>' + a.strArtist + '</strong></td><td>' + a.strCountry + '</td><td>' + a.strGenre + '</td><td>' + a.intFormedYear + '</td>';
+        fila.onclick = function () { mostrarFicha(a); };
+        document.getElementById('tbodyArtistas').appendChild(fila);
+      });
+
+    function buscarArtista() {
+      let nombre = document.getElementById('inputArtista').value;
+      let ficha  = document.getElementById('fichaArtista');
+
+      fetch('https://www.theaudiodb.com/api/v1/json/2/search.php?s=' + nombre)
+        .then(function (respuesta) { return respuesta.json(); })
+        .then(function (datos) {
+          if (datos.artists == null) {
+            ficha.innerHTML = '<div class="alert alert-warning">Artista no encontrado.</div>';
+          } else {
+            mostrarFicha(datos.artists[0]);
+          }
+        });
+    }
+  </script>
+</body>
+
+</html>

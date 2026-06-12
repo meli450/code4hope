@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talleres - Code4Hope</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!--  NAVBAR  -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+        <span>Code4Hope</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="patrullas.html">Patrullas</a></li>
+          <li class="nav-item"><a class="nav-link" href="inventario.html">Inventario</a></li>
+          <li class="nav-item"><a class="nav-link active" href="talleres.html">Talleres</a></li>
+          <li class="nav-item"><a class="nav-link" href="fol.html">Fichaje</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--  CABECERA  -->
+  <div class="bg-dark text-white py-4">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Inicio</a></li>
+          <li class="breadcrumb-item active text-white">Talleres</li>
+        </ol>
+      </nav>
+      <h1 class="h3"><i class="bi bi-mortarboard-fill text-warning me-2"></i>Talleres de Formación</h1>
+      <p class="text-white-50 mb-0">Talleres para la población: salud, nutrición, organización y más.</p>
+    </div>
+  </div>
+
+  <div class="container my-4">
+
+    <!-- Botón nuevo taller -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Talleres registrados <span class="badge bg-secondary" id="cntTalleres">3</span></h5>
+      <button class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#modalTaller">
+        <i class="bi bi-plus-circle me-1"></i> Nuevo taller
+      </button>
+    </div>
+
+    <!--  CARDS DE TALLERES  -->
+    <div class="row g-4" id="contenedorTalleres">
+
+      <!-- Taller 1 -->
+      <div class="col-md-6 col-lg-4" id="taller-1">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-heart-pulse-fill me-1"></i> Salud</span>
+            <span class="badge bg-light text-dark">Activo</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Primeros Auxilios Básicos</h5>
+            <p class="card-text text-muted small">
+              Fundamentos de primeros auxilios para la población: RCP, inmovilización, control de hemorragias.
+            </p>
+            <ul class="list-unstyled small text-muted">
+              <li><i class="bi bi-person-fill me-1 text-danger"></i> Dr. Carlos Méndez</li>
+              <li><i class="bi bi-calendar me-1 text-danger"></i> 15/06/2026 - 30/06/2026</li>
+              <li><i class="bi bi-geo-alt me-1 text-danger"></i> Centro Comunitario A</li>
+              <li><i class="bi bi-person-lines-fill"></i></i> Perfil Todos</li>
+            </ul>
+            <!-- Participantes -->
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted">Participantes</small>
+              <span class="badge bg-secondary">2 / 25</span>
+            </div>
+            <div class="progress mt-1" style="height:6px">
+              <div class="progress-bar bg-danger" style="width:8%"></div>
+            </div>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal"
+              data-bs-target="#modalParticipantes" onclick="abrirParticipantes('taller-1','Primeros Auxilios Básicos')">
+              <i class="bi bi-people me-1"></i> Participantes
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarTaller('taller-1')" title="Eliminar taller">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taller 2 -->
+      <div class="col-md-6 col-lg-4" id="taller-2">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-basket2-fill me-1"></i> Nutrición</span>
+            <span class="badge bg-light text-dark">Activo</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Seguridad Alimentaria</h5>
+            <p class="card-text text-muted small">
+              Conservación y distribución de alimentos en contextos de emergencia humanitaria.
+            </p>
+            <ul class="list-unstyled small text-muted">
+              <li><i class="bi bi-person-fill me-1 text-success"></i> Dra. Ana Torres</li>
+              <li><i class="bi bi-calendar me-1 text-success"></i> 20/05/2026 - 30/05/2026</li>
+              <li><i class="bi bi-geo-alt me-1 text-success"></i> Sala 3</li>
+              <li><i class="bi bi-person-lines-fill"></i></i> Perfil Monitores/as</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted">Participantes</small>
+              <span class="badge bg-secondary">18 / 30</span>
+            </div>
+            <div class="progress mt-1" style="height:6px">
+              <div class="progress-bar bg-success" style="width:60%"></div>
+            </div>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal"
+              data-bs-target="#modalParticipantes" onclick="abrirParticipantes('taller-2','Seguridad Alimentaria')">
+              <i class="bi bi-people me-1"></i> Participantes
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarTaller('taller-2')" title="Eliminar taller">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taller 3 -->
+      <div class="col-md-6 col-lg-4" id="taller-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-diagram-3-fill me-1"></i> Organización</span>
+            <span class="badge bg-light text-dark">Finalizado</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Gestión de Crisis</h5>
+            <p class="card-text text-muted small">
+              Toma de decisiones bajo presión: comunicación, coordinación de equipos y priorización de recursos.
+            </p>
+            <ul class="list-unstyled small text-muted">
+              <li><i class="bi bi-person-fill me-1 text-secondary"></i> Roberto Fernández</li>
+              <li><i class="bi bi-calendar me-1 text-secondary"></i> 01/04/2026 - 10/04/2026</li>
+              <li><i class="bi bi-geo-alt me-1 text-secondary"></i> Aula 2</li>
+              <li><i class="bi bi-person-lines-fill"></i></i> Perfil Monitores/as</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <small class="text-muted">Participantes</small>
+              <span class="badge bg-secondary">20 / 20</span>
+            </div>
+            <div class="progress mt-1" style="height:6px">
+              <div class="progress-bar bg-secondary" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal"
+              data-bs-target="#modalParticipantes" onclick="abrirParticipantes('taller-3','Gestión de Crisis')">
+              <i class="bi bi-people me-1"></i> Participantes
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarTaller('taller-3')" title="Eliminar taller">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- Fin talleres -->
+
+    <!-- Mensaje vacío -->
+    <div id="sinTalleres" class="text-center text-muted py-5 d-none">
+      <i class="bi bi-mortarboard" style="font-size:3rem;opacity:0.3"></i>
+      <p class="mt-2">No hay talleres. Crea el primero con el botón superior.</p>
+    </div>
+
+    <!--  LEYENDA  -->
+    <div class="mt-4 p-3 bg-light rounded">
+      <h6 class="mb-2">Leyenda de estados</h6>
+      <div class="d-flex flex-wrap gap-2 small">
+        <span class="badge bg-success rounded-pill">Activo</span> En curso
+        <span class="ms-2 badge bg-danger rounded-pill">Cancelado</span> Cancelado
+        <span class="ms-2 badge bg-secondary rounded-pill">Finalizado</span> Finalizado
+      </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!--  GESTIÓN DE PARTICIPANTES  -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0"><i class="bi bi-people-fill text-primary me-2"></i>Gestión de Participantes <span
+          class="badge bg-secondary" id="cntParticipantes">3</span></h5>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevoParticipante">
+        <i class="bi bi-person-plus-fill me-1"></i> Nuevo participante
+      </button>
+    </div>
+
+    <!-- Tabla participantes -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>#ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Género</th>
+            <th>Edad</th>
+            <th>Perfil</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbodyParticipantes">
+          <!-- Datos de ejemplo -->
+          <tr>
+            <td><span class="text-muted small">P-001</span></td>
+            <td>María</td>
+            <td>González</td>
+            <td>Femenino</td>
+            <td>34</td>
+            <td><span class="badge bg-info text-dark">Mujer</span></td>
+            <td><span class="badge bg-success">Activo</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="eliminarParticipante(this)" title="Eliminar">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text-muted small">P-002</span></td>
+            <td>Carlos</td>
+            <td>Ruiz</td>
+            <td>Masculino</td>
+            <td>52</td>
+            <td><span class="badge bg-warning text-dark">Cuidador</span></td>
+            <td><span class="badge bg-success">Activo</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="eliminarParticipante(this)" title="Eliminar">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text-muted small">P-003</span></td>
+            <td>Fatima</td>
+            <td>Al-Hassan</td>
+            <td>Femenino</td>
+            <td>17</td>
+            <td><span class="badge bg-secondary">Menor</span></td>
+            <td><span class="badge bg-warning text-dark">Inactivo</span></td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="eliminarParticipante(this)" title="Eliminar">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mensaje vacío participantes -->
+    <div id="sinParticipantes" class="text-center text-muted py-4 d-none">
+      <i class="bi bi-people" style="font-size:2.5rem;opacity:0.3"></i>
+      <p class="mt-2 small">No hay participantes registrados.</p>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- PERSONAL INSCRITO EN TALLERES (API JSONPlaceholder) -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0"><i class="bi bi-person-badge-fill text-warning me-2"></i>Personal Inscrito en Talleres</h5>
+    </div>
+
+    <!-- Buscador -->
+    <div class="input-group mb-4" style="max-width:420px">
+      <input type="text" class="form-control" id="inputBuscarEmp" placeholder="Buscar empleado por nombre...">
+      <button class="btn btn-warning text-dark" onclick="buscarEmpleado()">
+        <i class="bi bi-search me-1"></i> Buscar
+      </button>
+    </div>
+
+    <!-- Alerta: no encontrado -->
+    <div class="alert alert-danger d-none" id="alertaPersonal" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>Empleado no encontrado en la base de datos de formación.
+    </div>
+
+    <!-- Ficha detallada (resultado búsqueda) -->
+    <div id="resultadoPersonal" class="mb-4 d-none"></div>
+
+    <!-- Grid empleados -->
+    <div class="row g-3" id="contenedorPersonal">
+      <div class="col-12 text-center text-muted py-4">
+        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+        Cargando personal...
+      </div>
+    </div>
+
+  </div>
+
+  <!--  MODAL: Nuevo Taller PLUGIN PARA POPUPS -->
+  <div class="modal fade" id="modalTaller" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title"><i class="bi bi-mortarboard-fill me-2"></i>Nuevo taller</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formTaller" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre del taller <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="tNombre" required placeholder="Ej: Manejo de Estrés">
+                <div class="invalid-feedback">El nombre es obligatorio.</div>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Categoría</label>
+                <select class="form-select" id="tCategoria">
+                  <option value="Salud">Salud</option>
+                  <option value="Nutrición">Nutrición</option>
+                  <option value="Organización">Organización</option>
+                  <option value="Logística">Logística</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Estado</label>
+                <select class="form-select" id="tEstado">
+                  <option value="Activo">Activo</option>
+                  <option value="Cancelado">Cancelado</option>
+                  <option value="Finalizado">Finalizado</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Monitor/a <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="tMonitor" required placeholder="Nombre del o la monitora">
+                <div class="invalid-feedback">El monitor es obligatorio.</div>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha de inicio</label>
+                <input type="date" class="form-control" id="tFechaInicio">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Fecha de fin</label>
+                <input type="date" class="form-control" id="tFechaFin">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Capacidad</label>
+                <input type="number" class="form-control" id="tCapacidad" min="1" value="20">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Lugar</label>
+                <input type="text" class="form-control" id="tLugar" placeholder="Sala / ubicación">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" id="tDesc" rows="2" placeholder="Objetivos del taller…"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-warning text-dark" onclick="agregarTaller()">
+            <i class="bi bi-floppy2 me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  MODAL: Participantes PLUGIN PARA POPUPS -->
+  <div class="modal fade" id="modalParticipantes" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title"><i class="bi bi-person-lines-fill me-2"></i>Participantes: <span
+              id="nombreTallerAct"></span></h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario inscripción -->
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="pNombre" placeholder="Nombre del participante">
+            <button class="btn btn-success" type="button" onclick="inscribirParticipante()">
+              <i class="bi bi-person-plus-fill"></i> Inscribir
+            </button>
+          </div>
+          <!-- Lista de participantes -->
+          <ul class="list-group" id="listaParticipantes">
+            <!-- Se rellena por JS -->
+          </ul>
+          <p id="sinPart" class="text-muted text-center small mt-2 d-none">Sin participantes aún.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  MODAL: Nuevo Participante  -->
+  <div class="modal fade" id="modalNuevoParticipante" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title"><i class="bi bi-person-plus-fill me-2"></i>Nuevo participante</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formParticipante" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="pNombreNew" required placeholder="Nombre">
+                <div class="invalid-feedback">El nombre es obligatorio.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Apellido <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="pApellido" required placeholder="Apellido">
+                <div class="invalid-feedback">El apellido es obligatorio.</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Género</label>
+                <select class="form-select" id="pGenero">
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="No binario">No binario</option>
+                  <option value="Prefiere no indicar">Prefiere no indicar</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Edad</label>
+                <input type="number" class="form-control" id="pEdad" min="0" max="120" placeholder="Años">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Perfil</label>
+                <select class="form-select" id="pPerfil">
+                  <option value="Juventud">Juventud</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Desempleado">Desempleado/a</option>
+                  <option value="Menor">Menor</option>
+                  <option value="Diversidad funcional">Diversidad funcional</option>
+                  <option value="Adulto">Adulto</option>
+                  <option value="Todos">Todos</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Estado</label>
+                <select class="form-select" id="pEstado">
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" onclick="agregarParticipante()">
+            <i class="bi bi-floppy2 me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  FOOTER  -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+      <span class="text-white-50 small">&copy; 2026 Code4Hope</span>
+      <div class="d-flex gap-3 small">
+        <a href="index.html" class="text-white-50 text-decoration-none">Inicio</a>
+        <a href="patrullas.html" class="text-white-50 text-decoration-none">Patrullas</a>
+        <a href="inventario.html" class="text-white-50 text-decoration-none">Inventario</a>
+        <a href="fol.html" class="text-white-50 text-decoration-none">Fichaje</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Colores de cabecera por categoría
+    let colorsCat = { 'Salud': 'danger', 'Nutrición': 'success', 'Organización': 'secondary', 'Logística': 'warning', 'Otro': 'primary' };
+    // Texto de estado
+    let colorsEst = { 'Activo': 'success', 'Cancelado': 'danger', 'Finalizado': 'secondary' };
+    let idContador = 3;
+
+    // Participantes por taller (guardados en memoria)
+    let participantes = { 'taller-1': ['Laura M.', 'Pedro G.'], 'taller-2': [], 'taller-3': [] };
+    let tallerActivo = null;
+
+    // Agregar taller 
+    function agregarTaller() {
+      let form = document.getElementById('formTaller');
+
+      // Validación básica de Bootstrap, los campos vacios que sean required se ponen en rojo
+      // check validity es un metodo nativo del navegador que verifica si un required esta vacio
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+
+      let nombre = document.getElementById('tNombre').value.trim();
+      let cat = document.getElementById('tCategoria').value;
+      let estado = document.getElementById('tEstado').value;
+      let moni = document.getElementById('tMonitor').value.trim();
+      let fechaIni = document.getElementById('tFechaInicio').value;
+      let fechaFin = document.getElementById('tFechaFin').value;
+      let fechaTexto = (fechaIni && fechaFin) ? (fechaIni.split('-').reverse().join('/') + ' - ' + fechaFin.split('-').reverse().join('/')) : (fechaIni ? fechaIni.split('-').reverse().join('/') : '—');
+      let cap = document.getElementById('tCapacidad').value;
+      let lugar = document.getElementById('tLugar').value.trim() || '—';
+      let desc = document.getElementById('tDesc').value.trim() || '';
+      let colorCat = colorsCat[cat] || 'primary';
+      let colorEst = colorsEst[estado] || 'secondary';
+
+      idContador++;
+      let newId = 'taller-' + idContador;
+      participantes[newId] = [];
+
+      // CON ESTO AÑADO EL HTML NECESARIO PARA UNA FILA, NO SE GUARDA ES UN EJEMPLO 
+      let col = document.createElement('div');
+      col.className = 'col-md-6 col-lg-4';
+      col.id = newId;
+      col.innerHTML =
+        '<div class="card h-100 border-0 shadow-sm">' +
+        '<div class="card-header bg-' + colorCat + ' text-white d-flex justify-content-between align-items-center">' +
+        '<span>' + cat + '</span>' +
+        '<span class="badge bg-light text-dark">' + estado + '</span>' +
+        '</div>' +
+        '<div class="card-body">' +
+        '<h5 class="card-title">' + nombre + '</h5>' +
+        (desc ? '<p class="card-text text-muted small">' + desc + '</p>' : '') +
+        '<ul class="list-unstyled small text-muted">' +
+        '<li><i class="bi bi-person-fill me-1 text-' + colorCat + '"></i>' + moni + '</li>' +
+        '<li><i class="bi bi-calendar me-1 text-' + colorCat + '"></i>' + fechaTexto + '</li>' +
+        '<li><i class="bi bi-geo-alt me-1 text-' + colorCat + '"></i>' + lugar + '</li>' +
+        '</ul>' +
+        '<div class="d-flex justify-content-between align-items-center mt-2">' +
+        '<small class="text-muted">Participantes</small>' +
+        '<span class="badge bg-secondary">0 / ' + cap + '</span>' +
+        '</div>' +
+        '<div class="progress mt-1" style="height:6px"><div class="progress-bar bg-' + colorCat + '" style="width:0%"></div></div>' +
+        '</div>' +
+        '<div class="card-footer bg-white border-0 d-flex gap-2">' +
+        '<button class="btn btn-sm btn-outline-primary flex-fill" data-bs-toggle="modal" data-bs-target="#modalParticipantes" onclick="abrirParticipantes(\'' + newId + '\',\'' + nombre + '\')">' +
+        '<i class="bi bi-people me-1"></i> Participantes' +
+        '</button>' +
+        '<button class="btn btn-sm btn-outline-danger" onclick="eliminarTaller(\'' + newId + '\')" title="Eliminar">' +
+        '<i class="bi bi-trash3-fill"></i>' +
+        '</button>' +
+        '</div>' +
+        '</div>';
+
+      document.getElementById('contenedorTalleres').appendChild(col);
+      actualizarCntTalleres();
+      form.reset(); form.classList.remove('was-validated');
+      bootstrap.Modal.getInstance(document.getElementById('modalTaller')).hide();
+    }
+
+    //  Eliminar taller 
+    function eliminarTaller(id) {
+      if (!confirm('¿Eliminar este taller?')) return;
+      let el = document.getElementById(id);
+      if (el) el.remove();
+      delete participantes[id];
+      actualizarCntTalleres();
+      comprobarVacio();
+    }
+
+    function actualizarCntTalleres() {
+      let n = document.getElementById('contenedorTalleres').querySelectorAll('.col-md-6').length;
+      document.getElementById('cntTalleres').textContent = n;
+    }
+
+    function comprobarVacio() {
+      let n = document.getElementById('contenedorTalleres').querySelectorAll('.col-md-6').length;
+      document.getElementById('sinTalleres').classList.toggle('d-none', n > 0);
+    }
+
+    //  Participantes (modal de taller) 
+    function abrirParticipantes(id, nombre) {
+      tallerActivo = id;
+      document.getElementById('nombreTallerAct').textContent = nombre;
+      document.getElementById('pNombre').value = '';
+      renderParticipantes();
+    }
+
+    function renderParticipantes() {
+      let lista = document.getElementById('listaParticipantes');
+      let sinP = document.getElementById('sinPart');
+      let arr = participantes[tallerActivo] || [];
+
+      if (!arr.length) {
+        lista.innerHTML = '';
+        sinP.classList.remove('d-none');
+        return;
+      }
+      sinP.classList.add('d-none');
+      lista.innerHTML = arr.map(function (p, i) {
+        return '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          '<span><i class="bi bi-person-fill me-2 text-muted"></i>' + p + '</span>' +
+          '<button class="btn btn-sm btn-outline-danger" onclick="darDeBaja(' + i + ')" title="Dar de baja">' +
+          '<i class="bi bi-person-dash-fill"></i>' +
+          '</button>' +
+          '</li>';
+      }).join('');
+    }
+
+    function inscribirParticipante() {
+      let nombre = document.getElementById('pNombre').value.trim();
+      if (!nombre) { alert('Escribe el nombre del o la participante.'); return; }
+      if (!participantes[tallerActivo]) participantes[tallerActivo] = [];
+      participantes[tallerActivo].push(nombre);
+      document.getElementById('pNombre').value = '';
+      renderParticipantes();
+    }
+
+    function darDeBaja(idx) {
+      if (!confirm('¿Dar de baja a este participante?')) return;
+      participantes[tallerActivo].splice(idx, 1);
+      renderParticipantes();
+    }
+
+    // ---- GESTIÓN DE PARTICIPANTES (tabla) ----
+
+    // Contador autoincrementable para IDs de participantes
+    let idParticipante = 3;
+
+    // Colores de badge por perfil
+    let colorsPerfil = {
+      'Juventud': 'info', 'Mujer': 'info',
+      'Cuidador': 'warning', 'Menor': 'secondary',
+      'Adulto': 'primary', 'Diversidad funcional': 'light', 'Todos': 'dark'
+    };
+
+    // Colores de badge por estado de participante
+    let colorsEstPart = { 'Activo': 'success', 'Inactivo': 'warning', 'Baja': 'danger' };
+
+    // Agregar participante
+    function agregarParticipante() {
+      let form = document.getElementById('formParticipante');
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+
+      let nombre = document.getElementById('pNombreNew').value.trim();
+      let apellido = document.getElementById('pApellido').value.trim();
+      let genero = document.getElementById('pGenero').value;
+      let edad = document.getElementById('pEdad').value || '—';
+      let perfil = document.getElementById('pPerfil').value;
+      let estado = document.getElementById('pEstado').value;
+
+      idParticipante++;
+      let idTexto = 'P-' + String(idParticipante).padStart(3, '0');
+      let colorPerfil = colorsPerfil[perfil] || 'secondary';
+      let colorEstado = colorsEstPart[estado] || 'secondary';
+      let darkText = (colorPerfil === 'info' || colorPerfil === 'warning' || colorPerfil === 'light') ? ' text-dark' : '';
+      let darkEst = (estado === 'Inactivo') ? ' text-dark' : '';
+
+      let tbody = document.getElementById('tbodyParticipantes');
+      let fila = document.createElement('tr');
+      fila.className = 'fila-nueva';
+      fila.innerHTML =
+        '<td><span class="text-muted small">' + idTexto + '</span></td>' +
+        '<td>' + nombre + '</td>' +
+        '<td>' + apellido + '</td>' +
+        '<td>' + genero + '</td>' +
+        '<td>' + edad + '</td>' +
+        '<td><span class="badge bg-' + colorPerfil + darkText + '">' + perfil + '</span></td>' +
+        '<td><span class="badge bg-' + colorEstado + darkEst + '">' + estado + '</span></td>' +
+        '<td><button class="btn btn-sm btn-outline-danger" onclick="eliminarParticipante(this)" title="Eliminar"><i class="bi bi-trash3-fill"></i></button></td>';
+
+      tbody.appendChild(fila);
+
+      // Quitar color amarillo tras 1.5s
+      setTimeout(function () { fila.classList.remove('fila-nueva'); }, 1500);
+
+      actualizarCntParticipantes();
+      form.reset(); form.classList.remove('was-validated');
+      bootstrap.Modal.getInstance(document.getElementById('modalNuevoParticipante')).hide();
+    }
+
+    // Eliminar participante
+    function eliminarParticipante(btn) {
+      if (!confirm('¿Eliminar este participante?')) return;
+      btn.closest('tr').remove();
+      actualizarCntParticipantes();
+      comprobarVacioParticipantes();
+    }
+
+    function actualizarCntParticipantes() {
+      let n = document.getElementById('tbodyParticipantes').querySelectorAll('tr').length;
+      document.getElementById('cntParticipantes').textContent = n;
+    }
+
+    function comprobarVacioParticipantes() {
+      let n = document.getElementById('tbodyParticipantes').querySelectorAll('tr').length;
+      document.getElementById('sinParticipantes').classList.toggle('d-none', n > 0);
+    }
+
+    // ---- PERSONAL INSCRITO EN TALLERES (JSONPlaceholder API) ----
+
+    let talleresAsignados = [
+      'Primeros Auxilios Básicos',
+      'Seguridad Alimentaria',
+      'Gestión de Crisis',
+      'Taller de Logística',
+      'Formación de Liderazgo'
+    ];
+
+    let empleadosCargados = [];
+
+    async function cargarPersonal() {
+      let respuesta = await fetch('https://jsonplaceholder.typicode.com/users');
+      let empleados = await respuesta.json();
+      empleadosCargados = empleados;
+      renderPersonal(empleados);
+    }
+
+    function renderPersonal(empleados) {
+      let contenedor = document.getElementById('contenedorPersonal');
+      contenedor.innerHTML = empleados.map(function (emp, i) {
+        let taller = talleresAsignados[i % talleresAsignados.length];
+        let avatar = 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(emp.name);
+        return '<div class="col-md-6 col-lg-4">' +
+          '<div class="card h-100 border-0 shadow-sm">' +
+          '<div class="card-body text-center">' +
+          '<img src="' + avatar + '" class="rounded-circle mb-2" width="64" height="64" alt="' + emp.name + '">' +
+          '<h6 class="card-title mb-1">' + emp.name + '</h6>' +
+          '<p class="text-muted small mb-1"><i class="bi bi-envelope me-1"></i>' + emp.email + '</p>' +
+          '<p class="text-muted small mb-2"><i class="bi bi-building me-1"></i>' + emp.company.name + '</p>' +
+          '<span class="badge bg-warning text-dark"><i class="bi bi-mortarboard-fill me-1"></i>' + taller + '</span>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    function buscarEmpleado() {
+      let termino = document.getElementById('inputBuscarEmp').value.trim().toLowerCase();
+      let alerta = document.getElementById('alertaPersonal');
+      let resultado = document.getElementById('resultadoPersonal');
+
+      alerta.classList.add('d-none');
+      resultado.classList.add('d-none');
+
+      if (!termino) {
+        renderPersonal(empleadosCargados);
+        return;
+      }
+
+      let encontrado = empleadosCargados.find(function (emp) {
+        return emp.name.toLowerCase().includes(termino);
+      });
+
+      if (!encontrado) {
+        alerta.classList.remove('d-none');
+        return;
+      }
+
+      let idx = empleadosCargados.indexOf(encontrado);
+      let taller = talleresAsignados[idx % talleresAsignados.length];
+      let avatar = 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(encontrado.name);
+
+      resultado.innerHTML =
+        '<div class="card border-primary mb-3">' +
+        '<div class="card-header bg-primary text-white"><i class="bi bi-person-lines-fill me-2"></i>Expediente del Empleado</div>' +
+        '<div class="card-body d-flex gap-3 align-items-center">' +
+        '<img src="' + avatar + '" class="rounded-circle" width="80" height="80" alt="' + encontrado.name + '">' +
+        '<div>' +
+        '<h5 class="mb-1">' + encontrado.name + '</h5>' +
+        '<p class="mb-1 small"><i class="bi bi-envelope me-1 text-muted"></i>' + encontrado.email + '</p>' +
+        '<p class="mb-1 small"><i class="bi bi-telephone me-1 text-muted"></i>' + encontrado.phone + '</p>' +
+        '<p class="mb-2 small"><i class="bi bi-building me-1 text-muted"></i>' + encontrado.company.name + '</p>' +
+        '<span class="badge bg-warning text-dark"><i class="bi bi-mortarboard-fill me-1"></i>' + taller + '</span>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+      resultado.classList.remove('d-none');
+    }
+
+    window.addEventListener('load', function () {
+      cargarPersonal();
+      document.getElementById('inputBuscarEmp').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') buscarEmpleado();
+      });
+    });
+  </script>
+</body>
+
+</html>
