@@ -244,15 +244,54 @@ public class SubsistemaAlimMedDAO {
     }
 
     /**
-     * Lee un ID por consola y muestra el alimento correspondiente.
+     * Pide un nombre por consola, busca alimentos que lo contengan y devuelve
+     * el alimento elegido por el usuario. Devuelve null si no hay resultados
+     * o la eleccion no es valida.
+     */
+    public static Alimento seleccionarAlimento(Scanner sc, Connection con, GestionAlimentosDAO dao) {
+        String nombre;
+        List<Alimento> resultados;
+        Alimento seleccionado;
+        int eleccion;
+        int i;
+
+        System.out.print("  Nombre del alimento: ");
+        nombre = sc.nextLine();
+        resultados = dao.buscarAlimentosPorNombre(con, nombre);
+
+        if (resultados.isEmpty()) {
+            System.out.println("  No se encontraron alimentos con ese nombre.");
+            seleccionado = null;
+        } else if (resultados.size() == 1) {
+            seleccionado = resultados.get(0);
+            System.out.println("  Alimento encontrado: " + seleccionado.getNombre());
+        } else {
+            System.out.println("  Se encontraron varios alimentos:");
+            i = 0;
+            while (i < resultados.size()) {
+                System.out.println("  [" + (i + 1) + "] " + resultados.get(i).getNombre());
+                i++;
+            }
+            System.out.print("  Elige uno: ");
+            eleccion = leerOpcion(sc);
+            if (eleccion > 0 && eleccion <= resultados.size()) {
+                seleccionado = resultados.get(eleccion - 1);
+            } else {
+                System.out.println("  Eleccion no valida. Operacion cancelada.");
+                seleccionado = null;
+            }
+        }
+
+        return seleccionado;
+    }
+
+    /**
+     * Busca alimentos por nombre y muestra el resultado seleccionado.
      */
     public static void opObtenerAlimento(Scanner sc, Connection con, GestionAlimentosDAO dao) {
-        int id;
         Alimento alimento;
-        System.out.println("\n  -- Obtener alimento por ID --");
-        System.out.print("  ID del alimento: ");
-        id = leerEntero(sc);
-        alimento = dao.obtenerAlimento(con, id);
+        System.out.println("\n  -- Buscar alimento por nombre --");
+        alimento = seleccionarAlimento(sc, con, dao);
         mostrarAlimento(alimento);
     }
 
@@ -675,15 +714,54 @@ public class SubsistemaAlimMedDAO {
     }
 
     /**
-     * Lee un ID por consola y muestra el medicamento correspondiente.
+     * Pide un nombre por consola, busca medicamentos que lo contengan y devuelve
+     * el medicamento elegido por el usuario. Devuelve null si no hay resultados
+     * o la eleccion no es valida.
+     */
+    public static Medicamento seleccionarMedicamento(Scanner sc, Connection con, GestionMedicamentosDAO dao) {
+        String nombre;
+        List<Medicamento> resultados;
+        Medicamento seleccionado;
+        int eleccion;
+        int i;
+
+        System.out.print("  Nombre del medicamento: ");
+        nombre = sc.nextLine();
+        resultados = dao.buscarMedicamentosPorNombre(con, nombre);
+
+        if (resultados.isEmpty()) {
+            System.out.println("  No se encontraron medicamentos con ese nombre.");
+            seleccionado = null;
+        } else if (resultados.size() == 1) {
+            seleccionado = resultados.get(0);
+            System.out.println("  Medicamento encontrado: " + seleccionado.getNombre());
+        } else {
+            System.out.println("  Se encontraron varios medicamentos:");
+            i = 0;
+            while (i < resultados.size()) {
+                System.out.println("  [" + (i + 1) + "] " + resultados.get(i).getNombre());
+                i++;
+            }
+            System.out.print("  Elige uno: ");
+            eleccion = leerOpcion(sc);
+            if (eleccion > 0 && eleccion <= resultados.size()) {
+                seleccionado = resultados.get(eleccion - 1);
+            } else {
+                System.out.println("  Eleccion no valida. Operacion cancelada.");
+                seleccionado = null;
+            }
+        }
+
+        return seleccionado;
+    }
+
+    /**
+     * Busca medicamentos por nombre y muestra el resultado seleccionado.
      */
     public static void opObtenerMedicamento(Scanner sc, Connection con, GestionMedicamentosDAO dao) {
-        int id;
         Medicamento medicamento;
-        System.out.println("\n  -- Obtener medicamento por ID --");
-        System.out.print("  ID del medicamento: ");
-        id = leerEntero(sc);
-        medicamento = dao.obtenerMedicamento(con, id);
+        System.out.println("\n  -- Buscar medicamento por nombre --");
+        medicamento = seleccionarMedicamento(sc, con, dao);
         mostrarMedicamento(medicamento);
     }
 
