@@ -292,6 +292,68 @@ public class GestionAlimentosDAO {
     }
 
     /**
+     * Busca alimentos cuyo nombre contenga el texto indicado (busqueda parcial).
+     *
+     * @param con    Conexion activa con la base de datos
+     * @param nombre Texto a buscar dentro del nombre del alimento
+     * @return Lista de alimentos que coinciden; lista vacia si no hay resultados
+     */
+    public List<Alimento> buscarAlimentosPorNombre(Connection con, String nombre) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Alimento> alimentos = new ArrayList<>();
+        Alimento a;
+
+        try {
+            ps = con.prepareStatement(
+                    "SELECT p.id_producto, p.nombre, p.descripcion, p.unidad_medida, " +
+                            "       p.precio, p.categoria, " +
+                            "       a.calorias, a.tipo_dieta, a.necesita_refrigeracion, " +
+                            "       a.temperatura_min, a.temperatura_max " +
+                            "FROM PRODUCTOS p " +
+                            "INNER JOIN ALIMENTOS a ON p.id_producto = a.id_producto " +
+                            "WHERE p.nombre LIKE ? " +
+                            "ORDER BY p.nombre ASC");
+            ps.setString(1, "%" + nombre + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                a = new Alimento(
+                        rs.getInt("id_producto"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getString("unidad_medida"),
+                        rs.getDouble("precio"),
+                        rs.getString("categoria"),
+                        rs.getInt("calorias"),
+                        rs.getString("tipo_dieta"),
+                        rs.getBoolean("necesita_refrigeracion"),
+                        rs.getDouble("temperatura_min"),
+                        rs.getDouble("temperatura_max"));
+                alimentos.add(a);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+        }
+
+        return alimentos;
+    }
+
+    /**
      * Actualiza los datos de un alimento existente en PRODUCTOS y ALIMENTOS.
      *
      * @param con      Conexion activa con la base de datos
