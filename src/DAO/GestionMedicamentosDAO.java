@@ -282,6 +282,68 @@ public class GestionMedicamentosDAO {
     }
 
     /**
+     * Busca medicamentos cuyo nombre contenga el texto indicado (busqueda parcial).
+     *
+     * @param con    Conexion activa con la base de datos
+     * @param nombre Texto a buscar dentro del nombre del medicamento
+     * @return Lista de medicamentos que coinciden; lista vacia si no hay resultados
+     */
+    public List<Medicamento> buscarMedicamentosPorNombre(Connection con, String nombre) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Medicamento> medicamentos = new ArrayList<>();
+        Medicamento m;
+
+        try {
+            ps = con.prepareStatement(
+                    "SELECT p.id_producto, p.nombre, p.descripcion, p.unidad_medida, " +
+                            "       p.precio, p.categoria, " +
+                            "       m.principio_activo, m.dosis, m.via_administracion, " +
+                            "       m.necesita_receta, m.temperatura_almacenamiento " +
+                            "FROM PRODUCTOS p " +
+                            "INNER JOIN MEDICAMENTOS m ON p.id_producto = m.id_producto " +
+                            "WHERE p.nombre LIKE ? " +
+                            "ORDER BY p.nombre ASC");
+            ps.setString(1, "%" + nombre + "%");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                m = new Medicamento(
+                        rs.getInt("id_producto"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getString("unidad_medida"),
+                        rs.getDouble("precio"),
+                        rs.getString("categoria"),
+                        rs.getString("principio_activo"),
+                        rs.getString("dosis"),
+                        rs.getString("via_administracion"),
+                        rs.getBoolean("necesita_receta"),
+                        rs.getDouble("temperatura_almacenamiento"));
+                medicamentos.add(m);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+            try {
+                if (ps != null)
+                    ps.close();
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+        }
+
+        return medicamentos;
+    }
+
+    /**
      * Actualiza los datos de un medicamento en PRODUCTOS y MEDICAMENTOS.
      */
     public boolean actualizarMedicamento(Connection con, Medicamento medicamento) {
