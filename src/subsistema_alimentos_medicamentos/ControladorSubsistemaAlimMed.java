@@ -41,7 +41,7 @@ public class ControladorSubsistemaAlimMed {
         System.out.println("  |       GESTION DE ALIMENTOS               |");
         System.out.println("  +------------------------------------------+");
         System.out.println("  1. Insertar alimento");
-        System.out.println("  2. Obtener alimento por ID");
+        System.out.println("  2. Buscar alimento por nombre");
         System.out.println("  3. Listar todos los alimentos");
         System.out.println("  4. Actualizar alimento");
         System.out.println("  5. Eliminar alimento");
@@ -57,7 +57,7 @@ public class ControladorSubsistemaAlimMed {
         System.out.println("  |      GESTION DE MEDICAMENTOS             |");
         System.out.println("  +------------------------------------------+");
         System.out.println("  1.  Insertar medicamento");
-        System.out.println("  2.  Obtener medicamento por ID");
+        System.out.println("  2.  Buscar medicamento por nombre");
         System.out.println("  3.  Listar todos los medicamentos");
         System.out.println("  4.  Actualizar medicamento");
         System.out.println("  5.  Eliminar medicamento");
