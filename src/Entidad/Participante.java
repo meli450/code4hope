@@ -6,11 +6,9 @@ package Entidad;
 /**
  * Entidad que representa a un participante del subsistema de talleres
  */
-public class Participante {
+public class Participante extends Persona {
 
     private int id;
-    private String nombre;
-    private String apellido;
     private String genero;
     private int edad;
     private PerfilEnum perfil;
@@ -21,20 +19,6 @@ public class Participante {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * @return nombre del o la participante
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @return apellido del o la participante
-     */
-    public String getApellido() {
-        return apellido;
     }
 
     /**
@@ -70,20 +54,6 @@ public class Participante {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @param nombre nombre del o la participante
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @param apellido apellido del o la participante
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     /**
@@ -125,21 +95,11 @@ public class Participante {
      */
     public Participante(String nombre, String apellido, String genero,
             int edad, PerfilEnum perfil) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+        super(nombre, apellido);
         this.genero = genero;
         this.edad = edad;
         this.perfil = perfil;
         this.activo = true;
-    }
-
-    /**
-     * Devuelve nombre y apellido concatenados
-     *
-     * @return nombre completo del o la participante
-     */
-    public String getNombreCompleto() {
-        return nombre + " " + apellido;
     }
 
     @Override

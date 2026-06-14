@@ -1,14 +1,11 @@
-/*Subsistema Talleres de Formacion
- * Realizado por: Melisa
- * Punto de entrada del subsistema */
-package Entidad;
+package subsistema_taller;
 
 import DAO.Conexion_DB;
 import DAO.EncuestaDAO;
-import DAO.Subsistema_TalleresDAO;
 import DAO.MonitorDAO;
 import DAO.ParticipanteDAO;
 import DAO.RecursoDAO;
+import DAO.Subsistema_TalleresDAO;
 import DAO.TallerDAO;
 import java.sql.Connection;
 import java.util.Scanner;
@@ -51,6 +48,7 @@ public class ControladorSubsistema_Talleres {
         System.out.println("  5. Cancelar taller");
         System.out.println("  6. Filtrar por estado");
         System.out.println("  7. Exportar talleres a HTML");
+        System.out.println("  8. Finalizar taller");
         System.out.println("  0. Volver al menu principal");
         System.out.println("  ------------------------------------------");
         System.out.print("  Opcion: ");
@@ -145,11 +143,12 @@ public class ControladorSubsistema_Talleres {
     /**
      * Submenu de gestion de encuestas de un taller.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de encuestas
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de encuestas
+     * @param codTaller codigo del taller cuyas encuestas se gestionan
      */
-    private static void menuEncuesta(Scanner sc, Connection con, EncuestaDAO dao) {
+    private static void menuEncuesta(Scanner sc, Connection con, EncuestaDAO dao, int codTaller) {
         boolean volver = false;
         int opcion;
         while (!volver) {
@@ -157,16 +156,16 @@ public class ControladorSubsistema_Talleres {
             opcion = Subsistema_TalleresDAO.leerOpcion(sc);
             switch (opcion) {
                 case 1:
-                    Subsistema_TalleresDAO.opRegistrarEncuesta(sc, con, dao);
+                    Subsistema_TalleresDAO.opRegistrarEncuesta(sc, con, dao, codTaller);
                     break;
                 case 2:
-                    Subsistema_TalleresDAO.opMostrarEnlaceEncuesta(sc, con, dao);
+                    Subsistema_TalleresDAO.opMostrarEnlaceEncuesta(sc, con, dao, codTaller);
                     break;
                 case 3:
-                    Subsistema_TalleresDAO.opImportarYGenerarInforme(sc, con, dao);
+                    Subsistema_TalleresDAO.opImportarYGenerarInforme(sc, con, dao, codTaller);
                     break;
                 case 4:
-                    Subsistema_TalleresDAO.opVerEncuestasTaller(sc, con, dao);
+                    Subsistema_TalleresDAO.opVerEncuestasTaller(con, dao, codTaller);
                     break;
                 case 0:
                     volver = true;
@@ -188,11 +187,12 @@ public class ControladorSubsistema_Talleres {
      * @param daoP        DAO de participantes
      * @param daoR        DAO de recursos
      * @param daoEncuesta DAO de encuestas
+     * @param codTaller   codigo del taller seleccionado
      */
     private static void menuModificarTaller(Scanner sc, Connection con,
             TallerDAO dao, MonitorDAO daoMonitor,
             ParticipanteDAO daoP, RecursoDAO daoR,
-            EncuestaDAO daoEncuesta) {
+            EncuestaDAO daoEncuesta, int codTaller) {
         boolean volver = false;
         int opcion;
         while (!volver) {
@@ -200,28 +200,28 @@ public class ControladorSubsistema_Talleres {
             opcion = Subsistema_TalleresDAO.leerOpcion(sc);
             switch (opcion) {
                 case 1:
-                    Subsistema_TalleresDAO.opModificarDatosTaller(sc, con, dao, daoMonitor);
+                    Subsistema_TalleresDAO.opModificarDatosTaller(sc, con, dao, daoMonitor, codTaller);
                     break;
                 case 2:
-                    Subsistema_TalleresDAO.opInscribirParticipante(sc, con, dao, daoP);
+                    Subsistema_TalleresDAO.opInscribirParticipante(sc, con, dao, daoP, codTaller);
                     break;
                 case 3:
-                    Subsistema_TalleresDAO.opDarDeBajaParticipanteTaller(sc, con, dao);
+                    Subsistema_TalleresDAO.opDarDeBajaParticipanteTaller(sc, con, dao, codTaller);
                     break;
                 case 4:
-                    Subsistema_TalleresDAO.opVerParticipantesTaller(sc, con, dao);
+                    Subsistema_TalleresDAO.opVerParticipantesTaller(con, dao, codTaller);
                     break;
                 case 5:
-                    Subsistema_TalleresDAO.opAsignarRecursoTaller(sc, con, dao, daoR);
+                    Subsistema_TalleresDAO.opAsignarRecursoTaller(sc, con, dao, daoR, codTaller);
                     break;
                 case 6:
-                    Subsistema_TalleresDAO.opEliminarRecursoTaller(sc, con, dao);
+                    Subsistema_TalleresDAO.opEliminarRecursoTaller(sc, con, dao, daoR, codTaller);
                     break;
                 case 7:
-                    Subsistema_TalleresDAO.opVerRecursosTaller(sc, con, dao);
+                    Subsistema_TalleresDAO.opVerRecursosTaller(con, dao, codTaller);
                     break;
                 case 8:
-                    menuEncuesta(sc, con, daoEncuesta);
+                    menuEncuesta(sc, con, daoEncuesta, codTaller);
                     break;
                 case 0:
                     volver = true;
@@ -258,7 +258,10 @@ public class ControladorSubsistema_Talleres {
                     Subsistema_TalleresDAO.opCrearTaller(sc, con, dao, daoMonitor);
                     break;
                 case 2:
-                    menuModificarTaller(sc, con, dao, daoMonitor, daoP, daoR, daoEncuesta);
+                    Subsistema_TalleresDAO.opListarTalleres(con, dao);
+                    System.out.print("  ID del taller a modificar: ");
+                    int codTaller = Subsistema_TalleresDAO.leerEntero(sc);
+                    menuModificarTaller(sc, con, dao, daoMonitor, daoP, daoR, daoEncuesta, codTaller);
                     break;
                 case 3:
                     Subsistema_TalleresDAO.opEliminarTaller(sc, con, dao);
@@ -275,11 +278,14 @@ public class ControladorSubsistema_Talleres {
                 case 7:
                     Subsistema_TalleresDAO.opExportarTalleresHTML(con, dao, daoMonitor);
                     break;
+                case 8:
+                    Subsistema_TalleresDAO.opFinalizarTaller(sc, con, dao);
+                    break;
                 case 0:
                     volver = true;
                     break;
                 default:
-                    System.out.println("  Opcion no valida. Introduzca un numero entre 0 y 7.");
+                    System.out.println("  Opcion no valida. Introduzca un numero entre 0 y 8.");
                     break;
             }
         }
@@ -458,8 +464,7 @@ public class ControladorSubsistema_Talleres {
         } catch (Exception error) {
             error.printStackTrace();
         } finally {
-            sc.close();
-            conexionDB.CerrarConexion(conexion);
+            conexionDB.cerrarConexion(conexion);
         }
     }
 }
