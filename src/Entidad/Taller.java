@@ -265,26 +265,6 @@ public class Taller {
         this.recursos = new ArrayList<>();
     }
 
-    /**
-     * Cancela el taller guardando la fecha y el motivo de cancelacion.
-     *
-     * @param fecha      fecha de cancelacion en formato yyyy-MM-dd
-     * @param incidencia motivo de la cancelacion
-     */
-    public void cancelarTaller(String fecha, String incidencia) {
-        this.fechaCancelacion = fecha;
-        this.incidencia = incidencia;
-        this.estado = EstadoTallerEnum.CANCELADO;
-    }
-
-    /**
-     * Calcula cuantas plazas quedan libres en el taller.
-     *
-     * @return numero de plazas disponibles
-     */
-    public int getPlazasLibres() {
-        return aforoMaximo - participantes.size();
-    }
 
     @Override
     public String toString() {

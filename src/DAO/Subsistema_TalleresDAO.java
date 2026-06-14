@@ -1,6 +1,3 @@
-/*Subsistema Talleres de formación
- *Realizado por: Melisa
- * Subsistema_TalleresDAO */
 package DAO;
 
 import Entidad.*;
@@ -14,6 +11,9 @@ import java.util.*;
  * DAO de operaciones de consola del subsistema de talleres.
  * Agrupa los metodos utilitarios de lectura de entrada y todas las
  * operaciones CRUD sobre talleres, participantes, recursos, monitores y encuestas.
+ * 
+ * @author Melisa
+ * 
  */
 public class Subsistema_TalleresDAO {
 
@@ -186,14 +186,12 @@ public class Subsistema_TalleresDAO {
      * @param con        conexion a la bd
      * @param dao        DAO de talleres
      * @param daoMonitor DAO de monitores
+     * @param codTaller  codigo del taller a modificar
      */
     public static void opModificarDatosTaller(Scanner sc, Connection con,
-            TallerDAO dao, MonitorDAO daoMonitor) {
+            TallerDAO dao, MonitorDAO daoMonitor, int codTaller) {
         System.out.println("\n  --- MODIFICAR DATOS DEL TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller a modificar: ");
-        int cod = leerEntero(sc);
-        Taller taller = dao.obtenerTaller(con, cod);
+        Taller taller = dao.obtenerTaller(con, codTaller);
 
         if (taller == null) {
             System.out.println("  Taller no encontrado.");
@@ -233,7 +231,8 @@ public class Subsistema_TalleresDAO {
     }
 
     /**
-     * Elimina un taller de la bd tras solicitar confirmacion al usuario.
+     * Elimina un taller de la bd tras mostrar sus datos y solicitar confirmacion al usuario.
+     * Muestra el titulo y estado del taller antes de pedir confirmacion para evitar eliminaciones accidentales.
      *
      * @param sc  Scanner activo
      * @param con conexion a la bd
@@ -244,6 +243,12 @@ public class Subsistema_TalleresDAO {
         opListarTalleres(con, dao);
         System.out.print("  ID del taller a eliminar: ");
         int cod = leerEntero(sc);
+        Taller taller = dao.obtenerTaller(con, cod);
+        if (taller == null) {
+            System.out.println("  Taller no encontrado.");
+            return;
+        }
+        System.out.println("  Taller seleccionado: " + taller.getTitulo() + " | Estado: " + taller.getEstado().name());
         System.out.print("  Confirmar eliminacion (s/n): ");
         String confirma = sc.nextLine().trim();
 
@@ -328,6 +333,7 @@ public class Subsistema_TalleresDAO {
 
     /**
      * Cancela un taller solicitando el motivo y actualizando la bd con la fecha actual.
+     * Solo permite cancelar talleres en estado ACTIVO.
      *
      * @param sc  Scanner activo
      * @param con conexion a la bd
@@ -344,6 +350,8 @@ public class Subsistema_TalleresDAO {
             System.out.println("  Taller no encontrado.");
         } else if (taller.getEstado() == EstadoTallerEnum.CANCELADO) {
             System.out.println("  El taller ya esta cancelado.");
+        } else if (taller.getEstado() == EstadoTallerEnum.FINALIZADO) {
+            System.out.println("  No se puede cancelar un taller ya finalizado.");
         } else {
             String incidencia = leerTexto(sc, "  Motivo de cancelacion: ");
             boolean ok = dao.cancelarTaller(con, cod, incidencia);
@@ -351,6 +359,43 @@ public class Subsistema_TalleresDAO {
                 System.out.println("  Taller cancelado correctamente.");
             } else {
                 System.out.println("  Error al cancelar el taller.");
+            }
+        }
+    }
+
+    /**
+     * Finaliza un taller activo solicitando confirmacion al usuario.
+     *
+     * @param sc  Scanner activo
+     * @param con conexion a la bd
+     * @param dao DAO de talleres
+     */
+    public static void opFinalizarTaller(Scanner sc, Connection con, TallerDAO dao) {
+        System.out.println("\n  --- FINALIZAR TALLER ---");
+        opListarTalleres(con, dao);
+        System.out.print("  ID del taller a finalizar: ");
+        int cod = leerEntero(sc);
+        Taller taller = dao.obtenerTaller(con, cod);
+
+        if (taller == null) {
+            System.out.println("  Taller no encontrado.");
+        } else if (taller.getEstado() != EstadoTallerEnum.ACTIVO) {
+            System.out.println("  El taller no esta activo. Estado actual: " + taller.getEstado().name());
+        } else {
+            System.out.print("  Confirmar finalizacion (s/n): ");
+            String confirma = sc.nextLine().trim();
+            if (confirma.equalsIgnoreCase("s")) {
+                String fechaFin = (taller.getFechaFin() != null && !taller.getFechaFin().isEmpty())
+                        ? taller.getFechaFin()
+                        : java.time.LocalDate.now().toString();
+                boolean ok = dao.finalizarTaller(con, cod, fechaFin);
+                if (ok) {
+                    System.out.println("  Taller finalizado correctamente.");
+                } else {
+                    System.out.println("  Error al finalizar el taller.");
+                }
+            } else {
+                System.out.println("  Operacion cancelada.");
             }
         }
     }
@@ -396,17 +441,15 @@ public class Subsistema_TalleresDAO {
     /**
      * Inscribe un participante en un taller con validaciones de estado, aforo y perfil.
      *
-     * @param sc   Scanner activo
-     * @param con  conexion a la bd
-     * @param dao  DAO de talleres
-     * @param daoP DAO de participantes
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param daoP      DAO de participantes
+     * @param codTaller codigo del taller en el que inscribir
      */
     public static void opInscribirParticipante(Scanner sc, Connection con,
-            TallerDAO dao, ParticipanteDAO daoP) {
+            TallerDAO dao, ParticipanteDAO daoP, int codTaller) {
         System.out.println("\n  --- INSCRIBIR PARTICIPANTE EN TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
         Taller taller = dao.obtenerTaller(con, codTaller);
 
         if (taller == null) {
@@ -450,16 +493,13 @@ public class Subsistema_TalleresDAO {
     /**
      * Da de baja a un participante de un taller concreto.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de talleres
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param codTaller codigo del taller del que se da de baja al participante
      */
-    public static void opDarDeBajaParticipanteTaller(Scanner sc, Connection con, TallerDAO dao) {
+    public static void opDarDeBajaParticipanteTaller(Scanner sc, Connection con, TallerDAO dao, int codTaller) {
         System.out.println("\n  --- DAR DE BAJA PARTICIPANTE DE TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
-
         List<Participante> participantes = dao.obtenerParticipantesDeTaller(con, codTaller);
         if (participantes.isEmpty()) {
             System.out.println("  No hay participantes inscritos en este taller.");
@@ -482,16 +522,12 @@ public class Subsistema_TalleresDAO {
     /**
      * Muestra la lista de participantes inscritos en un taller.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de talleres
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param codTaller codigo del taller cuyos participantes se muestran
      */
-    public static void opVerParticipantesTaller(Scanner sc, Connection con, TallerDAO dao) {
+    public static void opVerParticipantesTaller(Connection con, TallerDAO dao, int codTaller) {
         System.out.println("\n  --- PARTICIPANTES DEL TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
-
         List<Participante> participantes = dao.obtenerParticipantesDeTaller(con, codTaller);
         if (participantes.isEmpty()) {
             System.out.println("  No hay participantes inscritos.");
@@ -508,53 +544,58 @@ public class Subsistema_TalleresDAO {
 
     /**
      * Asigna un recurso disponible a un taller con fechas de inicio y fin opcionales.
+     * Solo permite asignar recursos a talleres en estado ACTIVO.
+     * Tras la asignacion, actualiza el estado del recurso a EN_USO.
      *
-     * @param sc   Scanner activo
-     * @param con  conexion a la bd
-     * @param dao  DAO de talleres
-     * @param daoR DAO de recursos
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param daoR      DAO de recursos
+     * @param codTaller codigo del taller al que se asigna el recurso
      */
     public static void opAsignarRecursoTaller(Scanner sc, Connection con,
-            TallerDAO dao, RecursoDAO daoR) {
+            TallerDAO dao, RecursoDAO daoR, int codTaller) {
         System.out.println("\n  --- ASIGNAR RECURSO AL TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
-
-        opListarRecursos(con, daoR);
-        System.out.print("  ID del recurso: ");
-        int idRecurso = leerEntero(sc);
-        Recurso recurso = daoR.obtenerRecurso(con, idRecurso);
-
-        if (recurso == null) {
-            System.out.println("  Recurso no encontrado.");
-        } else if (recurso.getEstado() != EstadoRecursoEnum.DISPONIBLE) {
-            System.out.println("  El recurso no esta disponible. Estado actual: " + recurso.getEstado().name());
+        Taller taller = dao.obtenerTaller(con, codTaller);
+        if (taller == null) {
+            System.out.println("  Taller no encontrado.");
+        } else if (taller.getEstado() != EstadoTallerEnum.ACTIVO) {
+            System.out.println("  No se puede asignar un recurso a un taller que no esta activo. Estado actual: " + taller.getEstado().name());
         } else {
-            String fechaInicio = leerFecha(sc, "Fecha inicio uso");
-            String fechaFin    = leerFecha(sc, "Fecha fin uso (opcional, Enter para omitir)");
-            boolean ok = dao.asignarRecurso(con, codTaller, idRecurso, fechaInicio, fechaFin);
-            if (ok) {
-                System.out.println("  Recurso asignado al taller correctamente.");
+            opListarRecursos(con, daoR);
+            System.out.print("  ID del recurso: ");
+            int idRecurso = leerEntero(sc);
+            Recurso recurso = daoR.obtenerRecurso(con, idRecurso);
+            if (recurso == null) {
+                System.out.println("  Recurso no encontrado.");
+            } else if (recurso.getEstado() != EstadoRecursoEnum.DISPONIBLE) {
+                System.out.println("  El recurso no esta disponible. Estado actual: " + recurso.getEstado().name());
             } else {
-                System.out.println("  Error al asignar el recurso.");
+                String fechaInicio = leerFecha(sc, "Fecha inicio uso");
+                String fechaFin    = leerFecha(sc, "Fecha fin uso (opcional, Enter para omitir)");
+                boolean ok = dao.asignarRecurso(con, codTaller, idRecurso, fechaInicio, fechaFin);
+                if (ok) {
+                    daoR.modificarEstado(con, idRecurso, EstadoRecursoEnum.EN_USO);
+                    System.out.println("  Recurso asignado al taller correctamente.");
+                } else {
+                    System.out.println("  Error al asignar el recurso.");
+                }
             }
         }
     }
 
     /**
      * Elimina la asignacion de un recurso de un taller.
+     * Tras la eliminacion, actualiza el estado del recurso a DISPONIBLE.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de talleres
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param daoR      DAO de recursos
+     * @param codTaller codigo del taller del que se elimina el recurso
      */
-    public static void opEliminarRecursoTaller(Scanner sc, Connection con, TallerDAO dao) {
+    public static void opEliminarRecursoTaller(Scanner sc, Connection con, TallerDAO dao, RecursoDAO daoR, int codTaller) {
         System.out.println("\n  --- ELIMINAR RECURSO DEL TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
-
         List<Recurso> recursos = dao.obtenerRecursosDeTaller(con, codTaller);
         if (recursos.isEmpty()) {
             System.out.println("  No hay recursos asignados a este taller.");
@@ -567,6 +608,7 @@ public class Subsistema_TalleresDAO {
             int idRecurso = leerEntero(sc);
             boolean ok = dao.eliminarRecursoDeTaller(con, codTaller, idRecurso);
             if (ok) {
+                daoR.modificarEstado(con, idRecurso, EstadoRecursoEnum.DISPONIBLE);
                 System.out.println("  Recurso eliminado del taller.");
             } else {
                 System.out.println("  Error al eliminar el recurso.");
@@ -577,16 +619,12 @@ public class Subsistema_TalleresDAO {
     /**
      * Muestra los recursos asignados a un taller.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de talleres
+     * @param con       conexion a la bd
+     * @param dao       DAO de talleres
+     * @param codTaller codigo del taller cuyos recursos se muestran
      */
-    public static void opVerRecursosTaller(Scanner sc, Connection con, TallerDAO dao) {
+    public static void opVerRecursosTaller(Connection con, TallerDAO dao, int codTaller) {
         System.out.println("\n  --- RECURSOS DEL TALLER ---");
-        opListarTalleres(con, dao);
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
-
         List<Recurso> recursos = dao.obtenerRecursosDeTaller(con, codTaller);
         if (recursos.isEmpty()) {
             System.out.println("  No hay recursos asignados a este taller.");
@@ -604,14 +642,13 @@ public class Subsistema_TalleresDAO {
     /**
      * Registra una nueva encuesta vinculando el enlace de Google Forms al taller.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de encuestas
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de encuestas
+     * @param codTaller codigo del taller al que se asocia la encuesta
      */
-    public static void opRegistrarEncuesta(Scanner sc, Connection con, EncuestaDAO dao) {
+    public static void opRegistrarEncuesta(Scanner sc, Connection con, EncuestaDAO dao, int codTaller) {
         System.out.println("\n  --- REGISTRAR ENCUESTA ---");
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
         String titulo = leerTexto(sc, "  Titulo de la encuesta: ");
         String enlace = leerTexto(sc, "  Enlace Google Forms: ");
 
@@ -627,14 +664,13 @@ public class Subsistema_TalleresDAO {
     /**
      * Muestra el titulo y enlace de una encuesta seleccionada por el usuario.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de encuestas
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de encuestas
+     * @param codTaller codigo del taller cuyas encuestas se listan para seleccionar
      */
-    public static void opMostrarEnlaceEncuesta(Scanner sc, Connection con, EncuestaDAO dao) {
+    public static void opMostrarEnlaceEncuesta(Scanner sc, Connection con, EncuestaDAO dao, int codTaller) {
         System.out.println("\n  --- MOSTRAR ENLACE DE ENCUESTA ---");
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
         List<Encuesta> encuestas = dao.obtenerEncuestasDeTaller(con, codTaller);
         if (encuestas.isEmpty()) {
             System.out.println("  No hay encuestas para este taller.");
@@ -657,13 +693,24 @@ public class Subsistema_TalleresDAO {
 
     /**
      * Lee el CSV exportado de Google Forms, genera el informe estadistico y lo guarda en la bd.
+     * Muestra primero las encuestas del taller para que el usuario seleccione una.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de encuestas
+     * @param sc        Scanner activo
+     * @param con       conexion a la bd
+     * @param dao       DAO de encuestas
+     * @param codTaller codigo del taller cuyas encuestas se muestran
      */
-    public static void opImportarYGenerarInforme(Scanner sc, Connection con, EncuestaDAO dao) {
+    public static void opImportarYGenerarInforme(Scanner sc, Connection con, EncuestaDAO dao, int codTaller) {
         System.out.println("\n  --- IMPORTAR RESPUESTAS Y GENERAR INFORME ---");
+        List<Encuesta> encuestas = dao.obtenerEncuestasDeTaller(con, codTaller);
+        if (encuestas.isEmpty()) {
+            System.out.println("  No hay encuestas para este taller.");
+            return;
+        }
+        for (int i = 0; i < encuestas.size(); i++) {
+            Encuesta e = encuestas.get(i);
+            System.out.println("  ID: " + e.getCod() + " | " + e.getTitulo());
+        }
         System.out.print("  ID de la encuesta: ");
         int codEncuesta = leerEntero(sc);
         String rutaCSV = leerTexto(sc, "  Ruta del fichero CSV: ");
@@ -753,14 +800,12 @@ public class Subsistema_TalleresDAO {
     /**
      * Muestra las encuestas de un taller indicando si tienen informe generado.
      *
-     * @param sc  Scanner activo
-     * @param con conexion a la bd
-     * @param dao DAO de encuestas
+     * @param con       conexion a la bd
+     * @param dao       DAO de encuestas
+     * @param codTaller codigo del taller cuyas encuestas se listan
      */
-    public static void opVerEncuestasTaller(Scanner sc, Connection con, EncuestaDAO dao) {
+    public static void opVerEncuestasTaller(Connection con, EncuestaDAO dao, int codTaller) {
         System.out.println("\n  --- ENCUESTAS DEL TALLER ---");
-        System.out.print("  ID del taller: ");
-        int codTaller = leerEntero(sc);
         List<Encuesta> encuestas = dao.obtenerEncuestasDeTaller(con, codTaller);
 
         if (encuestas.isEmpty()) {
@@ -1031,6 +1076,7 @@ public class Subsistema_TalleresDAO {
 
     /**
      * Solicita los datos por consola y crea un nuevo monitor en la bd.
+     * Si el NIF esta vacio o supera los 9 caracteres, la operacion se cancela.
      *
      * @param sc  Scanner activo
      * @param con conexion a la bd
@@ -1038,7 +1084,11 @@ public class Subsistema_TalleresDAO {
      */
     public static void opCrearMonitor(Scanner sc, Connection con, MonitorDAO dao) {
         System.out.println("\n  --- CREAR MONITOR ---");
-        String nif       = leerTexto(sc, "  NIF (max 9 caracteres): ");
+        String nif       = leerTexto(sc, "  NIF (max 20 caracteres): ");
+        if (nif.isEmpty() || nif.length() > 20) {
+            System.out.println("  NIF no válido. Debe tener entre 1 y 20 caracteres.");
+            return;
+        }
         String nombre    = leerTexto(sc, "  Nombre: ");
         String apellido  = leerTexto(sc, "  Apellido: ");
         String telefono  = leerTexto(sc, "  Telefono: ");

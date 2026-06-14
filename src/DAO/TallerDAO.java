@@ -1,28 +1,27 @@
-/*Subsistema Talleres de formación
- *Realizado por: Melisa
- * TallerDAO */
 package DAO;
 
+import Entidad.EstadoRecursoEnum;
+import Entidad.EstadoTallerEnum;
 import Entidad.Participante;
 import Entidad.PerfilEnum;
 import Entidad.Recurso;
-import Entidad.EstadoRecursoEnum;
-import Entidad.EstadoTallerEnum;
 import Entidad.Taller;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO para las operaciones CRUD de la entidad Taller sobre la bd
- * Gestiona tambien las relaciones con participantes y recursos
+ * DAO para las operaciones CRUD de la entidad Taller sobre la bd Gestiona
+ * tambien las relaciones con participantes y recursos
+ * 
+ * @author Melisa
  */
 public class TallerDAO {
 
     /**
      * Inserta un nuevo taller en la bd.
      *
-     * @param con    conexion a la bd
+     * @param con conexion a la bd
      * @param taller objeto Taller con los datos a insertar
      * @return identificador generado o -1 si fallo la insercion
      */
@@ -33,9 +32,9 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "INSERT INTO taller (titulo, descripcion, perfil_dest, etiqueta, espacio, " +
-                    "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO taller (titulo, descripcion, perfil_dest, etiqueta, espacio, "
+                    + "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, taller.getTitulo());
             ps.setString(2, taller.getDescripcion());
@@ -83,9 +82,9 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, " +
-                    "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif " +
-                    "FROM taller WHERE cod = ?");
+                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, "
+                    + "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif "
+                    + "FROM taller WHERE cod = ?");
             ps.setInt(1, cod);
             rs = ps.executeQuery();
 
@@ -126,9 +125,9 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, " +
-                    "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif " +
-                    "FROM taller ORDER BY cod");
+                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, "
+                    + "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif "
+                    + "FROM taller ORDER BY cod");
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -160,7 +159,7 @@ public class TallerDAO {
     /**
      * Obtiene la lista de talleres filtrados por estado.
      *
-     * @param con    conexion a la bd
+     * @param con conexion a la bd
      * @param estado estado por el que filtrar
      * @return lista de talleres con el estado indicado
      */
@@ -171,9 +170,9 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, " +
-                    "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif " +
-                    "FROM taller WHERE estado = ? ORDER BY cod");
+                    "SELECT cod, titulo, descripcion, perfil_dest, etiqueta, espacio, "
+                    + "aforo_maximo, fecha_inicio, fecha_fin, fecha_cancelacion, incidencia, estado, nif "
+                    + "FROM taller WHERE estado = ? ORDER BY cod");
             ps.setString(1, estado.name());
             rs = ps.executeQuery();
 
@@ -206,7 +205,7 @@ public class TallerDAO {
     /**
      * Actualiza los datos de un taller existente en la bd.
      *
-     * @param con    conexion a la bd
+     * @param con conexion a la bd
      * @param taller objeto Taller con los datos actualizados
      * @return true si la actualizacion fue exitosa
      */
@@ -217,9 +216,9 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "UPDATE taller SET titulo = ?, descripcion = ?, perfil_dest = ?, etiqueta = ?, " +
-                    "espacio = ?, aforo_maximo = ?, fecha_inicio = ?, fecha_fin = ?, " +
-                    "fecha_cancelacion = ?, incidencia = ?, estado = ?, nif = ? WHERE cod = ?");
+                    "UPDATE taller SET titulo = ?, descripcion = ?, perfil_dest = ?, etiqueta = ?, "
+                    + "espacio = ?, aforo_maximo = ?, fecha_inicio = ?, fecha_fin = ?, "
+                    + "fecha_cancelacion = ?, incidencia = ?, estado = ?, nif = ? WHERE cod = ?");
             ps.setString(1, taller.getTitulo());
             ps.setString(2, taller.getDescripcion());
             ps.setString(3, taller.getPerfilRequerido().name());
@@ -287,8 +286,8 @@ public class TallerDAO {
     /**
      * Cancela un taller guardando la incidencia y la fecha actual del sistema.
      *
-     * @param con        conexion a la bd
-     * @param cod        codigo del taller a cancelar
+     * @param con conexion a la bd
+     * @param cod codigo del taller a cancelar
      * @param incidencia motivo de la cancelacion
      * @return true si la operacion fue exitosa
      */
@@ -321,10 +320,46 @@ public class TallerDAO {
         return exitoso;
     }
 
+    
+
+    /**
+     * Finaliza un taller usando la fecha de fin planificada.
+     * Si no tenia fecha de fin, se usa la fecha actual del sistema.
+     *
+     * @param con     conexion a la bd
+     * @param cod     codigo del taller a finalizar
+     * @param fechaFin fecha de fin a registrar (yyyy-MM-dd)
+     * @return true si la operacion fue exitosa
+     */
+    public boolean finalizarTaller(Connection con, int cod, String fechaFin) {
+        PreparedStatement ps = null;
+        boolean exitoso = false;
+        int filasActualizadas;
+
+        try {
+            ps = con.prepareStatement(
+                    "UPDATE taller SET estado = ?, fecha_fin = ? WHERE cod = ?");
+            ps.setString(1, EstadoTallerEnum.FINALIZADO.name());
+            ps.setString(2, fechaFin);
+            ps.setInt(3, cod);
+            filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                exitoso = true;
+                System.out.println("  Taller " + cod + " finalizado.");
+            } else {
+                System.out.println("  Taller con ID " + cod + " no encontrado.");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return exitoso;
+    }
+
     /**
      * Cuenta cuantos participantes hay inscritos en un taller.
      *
-     * @param con       conexion a la bd
+     * @param con conexion a la bd
      * @param codTaller codigo del taller
      * @return numero de participantes inscritos
      */
@@ -342,22 +377,21 @@ public class TallerDAO {
             if (rs.next()) {
                 total = rs.getInt(1);
             }
-
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
         return total;
     }
 
     /**
      * Inscribe a un participante en un taller registrando las fechas de participacion.
      *
-     * @param con           conexion a la bd
-     * @param codTaller     codigo del taller
+     * @param con conexion a la bd
+     * @param codTaller codigo del taller
      * @param idParticipante identificador del participante
-     * @param fechaInicio   fecha de inicio de la participacion (yyyy-MM-dd)
-     * @param fechaFin      fecha de fin de la participacion (yyyy-MM-dd, puede ser null)
+     * @param fechaInicio fecha de inicio de la participacion (yyyy-MM-dd)
+     * @param fechaFin fecha de fin de la participacion (yyyy-MM-dd, puede ser
+     * nulo)
      * @return true si la inscripcion fue exitosa
      */
     public boolean inscribirParticipante(Connection con, int codTaller,
@@ -379,7 +413,7 @@ public class TallerDAO {
             }
             filas = ps.executeUpdate();
 
-            if (filas > 0) {
+            if (filas> 0) {
                 exitoso = true;
                 System.out.println("  Participante " + idParticipante + " inscrito en taller " + codTaller);
             }
@@ -387,15 +421,15 @@ public class TallerDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
         return exitoso;
     }
 
     /**
-     * Da de baja a un participante de un taller eliminando su registro de la tabla participa.
+     * Da de baja a un participante de un taller eliminando su registro de la
+     * tabla participa.
      *
-     * @param con            conexion a la bd
-     * @param codTaller      codigo del taller
+     * @param con conexion a la bd
+     * @param codTaller codigo del taller
      * @param idParticipante identificador del participante
      * @return true si la baja fue exitosa
      */
@@ -426,9 +460,10 @@ public class TallerDAO {
     }
 
     /**
-     * Obtiene los participantes inscritos en un taller mediante join con la tabla participa.
+     * Obtiene los participantes inscritos en un taller mediante join con la
+     * tabla participa.
      *
-     * @param con       conexion a la bd
+     * @param con conexion a la bd
      * @param codTaller codigo del taller
      * @return lista de participantes inscritos
      */
@@ -439,10 +474,10 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "SELECT p.id, p.nombre, p.apellido, p.genero, p.edad, p.perfil, p.activo " +
-                    "FROM participante p " +
-                    "INNER JOIN participa pt ON p.id = pt.iduser " +
-                    "WHERE pt.codt = ? ORDER BY p.apellido, p.nombre");
+                    "SELECT p.id, p.nombre, p.apellido, p.genero, p.edad, p.perfil, p.activo "
+                    + "FROM participante p "
+                    + "INNER JOIN participa pt ON p.id = pt.iduser "
+                    + "WHERE pt.codt = ? ORDER BY p.apellido, p.nombre");
             ps.setInt(1, codTaller);
             rs = ps.executeQuery();
 
@@ -469,11 +504,11 @@ public class TallerDAO {
     /**
      * Asigna un recurso a un taller registrando las fechas de uso.
      *
-     * @param con        conexion a la bd
-     * @param codTaller  codigo del taller
-     * @param idRecurso  identificador del recurso
+     * @param con conexion a la bd
+     * @param codTaller codigo del taller
+     * @param idRecurso identificador del recurso
      * @param fechaInicio fecha de inicio del uso (yyyy-MM-dd)
-     * @param fechaFin   fecha de fin del uso (yyyy-MM-dd, puede ser null)
+     * @param fechaFin fecha de fin del uso (yyyy-MM-dd, puede ser null)
      * @return true si la asignacion fue exitosa
      */
     public boolean asignarRecurso(Connection con, int codTaller, int idRecurso,
@@ -510,7 +545,7 @@ public class TallerDAO {
     /**
      * Elimina la asignacion de un recurso de un taller.
      *
-     * @param con       conexion a la bd
+     * @param con conexion a la bd
      * @param codTaller codigo del taller
      * @param idRecurso identificador del recurso
      * @return true si la eliminacion fue exitosa
@@ -542,9 +577,10 @@ public class TallerDAO {
     }
 
     /**
-     * Obtiene los recursos asignados a un taller mediante join con la tabla tiene.
+     * Obtiene los recursos asignados a un taller mediante join con la tabla
+     * tiene.
      *
-     * @param con       conexion a la bd
+     * @param con conexion a la bd
      * @param codTaller codigo del taller
      * @return lista de recursos asignados al taller
      */
@@ -555,10 +591,10 @@ public class TallerDAO {
 
         try {
             ps = con.prepareStatement(
-                    "SELECT r.id, r.tipo, r.disponibilidad, r.cantidad, r.es_fungible, r.idp " +
-                    "FROM recurso r " +
-                    "INNER JOIN tiene t ON r.id = t.idr " +
-                    "WHERE t.codt = ? ORDER BY r.tipo");
+                    "SELECT r.id, r.tipo, r.disponibilidad, r.cantidad, r.es_fungible, r.idp "
+                    + "FROM recurso r "
+                    + "INNER JOIN tiene t ON r.id = t.idr "
+                    + "WHERE t.codt = ? ORDER BY r.tipo");
             ps.setInt(1, codTaller);
             rs = ps.executeQuery();
 
