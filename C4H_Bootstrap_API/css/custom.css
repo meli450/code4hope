@@ -1,0 +1,14 @@
+body { font-family: 'Segoe UI', sans-serif; }
+
+/* Navbar personalizada */
+.navbar-brand span { font-weight: 800; letter-spacing: 0.5px; }
+
+/* Hero */
+.hero-section {
+  background: #212529;
+  color: white;
+  padding: 4rem 0;
+}
+
+/* Fila eliminable */
+tr.fila-nueva td { background-color: #fff3cd; transition: background 1s; }

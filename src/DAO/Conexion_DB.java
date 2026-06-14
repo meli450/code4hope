@@ -18,7 +18,7 @@ public class Conexion_DB {
 
     private static final String URL = "jdbc:mysql://localhost:3306/code4hope";
     private static final String USUARIO = "root";
-    private static final String PASSWORD = "2210";
+    private static final String PASSWORD = "root";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
     /**
@@ -48,7 +48,7 @@ public class Conexion_DB {
      * @param conexion Objeto Connection a cerrar (puede ser null)
      * @throws Exception Si ocurre un error al cerrar la conexion
      */
-    public void CerrarConexion(Connection conexion) throws Exception {
+    public void cerrarConexion(Connection conexion) throws Exception {
         try {
             if (conexion != null) {
                 conexion.close();

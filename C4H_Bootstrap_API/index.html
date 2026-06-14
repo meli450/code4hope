@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code4Hope - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+<!--  NAVBAR  -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="bi bi-heart-pulse-fill text-danger me-2"></i>
+      <span>Code4Hope</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="patrullas.html">Patrullas</a></li>
+        <li class="nav-item"><a class="nav-link" href="inventario.html">Inventario</a></li>
+        <li class="nav-item"><a class="nav-link" href="talleres.html">Talleres</a></li>
+        <li class="nav-item"><a class="nav-link" href="fol.html">Fichaje</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--  HERO  -->
+<section class="hero-section">
+  <div class="container text-center">
+    <i class="bi bi-heart-pulse-fill text-danger" style="font-size:3rem"></i>
+    <h1 class="display-5 fw-bold mt-3">Code4Hope</h1>
+    <p class="lead text-secondary">Sistema de Gestión de Ayuda Humanitaria</p>
+    <p class="col-lg-6 mx-auto text-white-50">
+      Plataforma para coordinar patrullas, controlar inventario de
+      alimentos y medicamentos, y organizar talleres de formación en zonas de emergencia.
+    </p>
+    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+      <a href="patrullas.html" class="btn btn-danger btn-lg">
+        <i class="bi bi-people-fill me-2"></i>Ver Patrullas
+      </a>
+      <a href="inventario.html" class="btn btn-outline-light btn-lg">
+        <i class="bi bi-box-seam me-2"></i>Ver Inventario
+      </a>
+      <a href="talleres.html" class="btn btn-warning btn-lg">
+        <i class="bi bi-mortarboard-fill me-2"></i>Ver Talleres
+      </a>
+    </div>
+  </div>
+</section>
+
+<!--  ALERTA EJEMPLO  -->
+<div class="container mt-4">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <strong>Alerta de stock:</strong> Paracetamol y Suero Oral están en nivel bajo o agotado. Revisa el inventario.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+</div>
+
+<!--  MÓDULOS (Cards Bootstrap)  -->
+<div class="container my-5">
+  <h2 class="mb-1">Módulos del sistema</h2>
+  <p class="text-muted mb-4">Accede a cada sección desde aquí</p>
+
+  <div class="row g-4">
+    <!-- Patrullas -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center py-4">
+          <i class="bi bi-people-fill text-danger" style="font-size:2.5rem"></i>
+          <h5 class="mt-3">Patrullas</h5>
+          <p class="text-muted small">Equipos de campo asignados a zonas de actuación con un líder responsable.</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center pb-3">
+          <a href="patrullas.html" class="btn btn-danger btn-sm">Acceder</a>
+        </div>
+      </div>
+    </div>
+    <!-- Alimentos -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center py-4">
+          <i class="bi bi-basket2-fill text-success" style="font-size:2.5rem"></i>
+          <h5 class="mt-3">Alimentos</h5>
+          <p class="text-muted small">Control de stock alimentario con fechas de caducidad y estado de disponibilidad.</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center pb-3">
+          <a href="inventario.html" class="btn btn-success btn-sm">Acceder</a>
+        </div>
+      </div>
+    </div>
+    <!-- Medicamentos -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center py-4">
+          <i class="bi bi-capsule-pill text-primary" style="font-size:2.5rem"></i>
+          <h5 class="mt-3">Medicamentos</h5>
+          <p class="text-muted small">Inventario de medicamentos esenciales: tipo, cantidad, dosis y fechas de control.</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center pb-3">
+          <a href="inventario.html#medicamentos" class="btn btn-primary btn-sm">Acceder</a>
+        </div>
+      </div>
+    </div>
+    <!-- Talleres -->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center py-4">
+          <i class="bi bi-mortarboard-fill text-warning" style="font-size:2.5rem"></i>
+          <h5 class="mt-3">Talleres</h5>
+          <p class="text-muted small">Formaciones para la población: primeros auxilios, nutrición, gestión de crisis...</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center pb-3">
+          <a href="talleres.html" class="btn btn-warning btn-sm">Acceder</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  STATS  -->
+<div class="bg-light py-5">
+  <div class="container">
+    <h2 class="mb-4">Situación actual</h2>
+    <div class="row g-3 text-center">
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <div class="card-body">
+            <h3 class="fw-bold text-danger">3</h3>
+            <p class="mb-0 text-muted small">Patrullas activas</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <div class="card-body">
+            <h3 class="fw-bold text-success">15</h3>
+            <p class="mb-0 text-muted small">Participantes activos</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <div class="card-body">
+            <h3 class="fw-bold text-primary">6</h3>
+            <p class="mb-0 text-muted small">Ítems en inventario</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <div class="card-body">
+            <h3 class="fw-bold text-warning">3</h3>
+            <p class="mb-0 text-muted small">Talleres programados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  ACORDEÓN: ¿Qué es Code4Hope?  -->
+<div class="container my-5">
+  <div class="row align-items-start g-5">
+    <div class="col-lg-6">
+      <h2 class="mb-3">¿Qué es Code4Hope?</h2>
+      <p class="text-muted">
+        Code4Hope es un sistema diseñado para organizaciones humanitarias que necesitan
+        coordinar sus operaciones sobre el terreno de forma rápida, sencilla y sin
+        depender de conexión a internet.
+      </p>
+      <p class="text-muted">
+        Cubre los cuatro pilares de cualquier operación humanitaria: los equipos de campo
+        (<strong>patrullas</strong>), los recursos materiales (<strong>alimentos y medicamentos</strong>)
+        y la formación continua (<strong>talleres</strong>) para la población.
+      </p>
+      <!-- Lista de grupos Bootstrap -->
+      <ul class="list-group list-group-flush mt-3">
+        <li class="list-group-item d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-success"></i> Ejemplo
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-success"></i> Ejemplo
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-success"></i> Ejemplo
+        </li>
+        <li class="list-group-item d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-success"></i> Ejemplo
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <h2 class="mb-3">Preguntas frecuentes</h2>
+      <!-- Acordeón Bootstrap -->
+      <div class="accordion" id="faq">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              Ejemplo 1
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae similique accusantium debitis alias eos soluta iusto, quasi atque nobis, numquam quam beatae recusandae veritatis id! Voluptates quae facere enim facilis.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              Ejemplo 2
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, eaque, reprehenderit voluptas, adipisci earum maiores consectetur quibusdam ut natus sed veniam aut deserunt dolor consequatur sapiente iure sequi ducimus similique.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              Ejemplo 3
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus quasi dolorem rerum minima eos dicta asperiores ut nesciunt distinctio atque, sint porro excepturi nulla, iste nobis. Sint autem deserunt dolores?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  FOOTER  -->
+<footer class="bg-dark text-white py-4 mt-5">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <span class="text-white-50 small">&copy; 2026 Code4Hope</span>
+    <div class="d-flex gap-3 small">
+      <a href="index.html" class="text-white-50 text-decoration-none">Inicio</a>
+      <a href="patrullas.html" class="text-white-50 text-decoration-none">Patrullas</a>
+      <a href="inventario.html" class="text-white-50 text-decoration-none">Inventario</a>
+      <a href="talleres.html" class="text-white-50 text-decoration-none">Talleres</a>
+      <a href="fol.html" class="text-white-50 text-decoration-none">Fichaje</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
