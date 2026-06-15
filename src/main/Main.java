@@ -13,7 +13,7 @@ import subsistema_taller.ControladorSubsistema_Talleres;
  *   - Subsistema de Patrullas
  *   - Subsistema de Talleres de Formacion
  *
- * @author Code4Hope Team
+ * @author Julio Linares, Jose Manuel Morato, Melisa Vafaeva, Marc Nacher
  * @version 1.0
  */
 public class Main {
